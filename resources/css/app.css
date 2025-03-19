@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'gilroy';
+    src: url('../../public/fonts/SVN-Gilroy-Regular.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'gilroy-md';
+    src: url('../../public/fonts/SVN-Gilroy-Medium.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'gilroy-bd';
+    src: url('../../public/fonts/SVN-Gilroy-Bold.otf') format('opentype');
+}
