@@ -28,7 +28,7 @@ class OrderHelper {
     public static function getIconPayment($status) {
         return match ($status) {
             'paid' => 'w-3 h-3 rounded-full bg-black',
-            'unpaid' => 'w-3 h-3 rounded-full border-2 border-black'
+            'unpaid' => 'w-3 h-3 rounded-full border-2 border-black',
         };
     }
 

@@ -34,8 +34,25 @@ class OrderController extends Controller
             ->leftJoin('areas as a', 'a.id', '=', 'w.area_id')
             ->leftJoin('customer_categories as cc', 'cc.id', '=', 'c.customer_category')
             ->select('c.*','a.name as area_name', 'w.name as ward_name', 'ad.address as address',
-                'cc.discount_percent as discount_percent', 'cc.price_type_id as customer_price')->get();
-        $products = DB::table('products as p')->select('p.SKU', 'p.name', 'p.image')->get();
+                'cc.discount_percent', 'cc.price_type_id as customer_price')->get();
+
+        $products = DB::select("
+            SELECT
+                p.SKU,
+                p.name,
+                p.image,
+                q.quantity,
+                CONCAT('{', GROUP_CONCAT(CONCAT('\"', pr.type_id, '\"', ':', pr.price) SEPARATOR ', '), '}') AS prices
+            FROM products AS p
+            LEFT JOIN quantities AS q ON p.SKU = q.SKU
+            LEFT JOIN prices AS pr ON p.SKU = pr.SKU
+            GROUP BY p.SKU, p.name, p.image, q.quantity
+        ");
+
+        foreach ($products as $product) {
+            $product->prices = json_decode($product->prices, true);
+        }
+
         $price_types = DB::table('price_types as pt')->select('pt.type_id as type_id', 'pt.name as price_name')->get();
         return view('dream-up.pages.order.create', compact(['customers','products','price_types']));
     }

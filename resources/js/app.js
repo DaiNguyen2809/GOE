@@ -197,6 +197,31 @@ function wardSelect(allWards) {
         }
     }
 }
+function handleShowContent(content) {
+    let ctn = document.getElementById(content);
+    ctn.classList.remove('hidden');
+    ctn.classList.add('block');
+    handleClickOutside(content)
+}
+function handleClickOutside(content) {
+    let ctn = document.getElementById(content);
+    function clickOutside(event) {
+        if (!ctn.contains(event.target)) {
+            ctn.classList.remove('block');
+            ctn.classList.add('hidden');
+            document.removeEventListener('click', clickOutside);
+        }
+    }
+    // Thêm sự kiện sau khi click hiện tại hoàn tất
+    setTimeout(() => {
+        document.addEventListener('click', clickOutside);
+    }, 0);
+}
+function handleCloseContent(content) {
+    let ctn = document.getElementById(content);
+    ctn.classList.remove('block');
+    ctn.classList.add('hidden');
+}
 
 $.ajaxSetup({
     headers: {
@@ -215,6 +240,8 @@ $(document).ready(function () {
     }
 });
 
+window.handleCloseContent = handleCloseContent;
+window.handleShowContent = handleShowContent;
 window.handleConfirmDelete = handleConfirmDelete;
 window.handleCloseModal = handleCloseModal;
 window.handleShowSuccessAlert = handleShowSuccessAlert;
