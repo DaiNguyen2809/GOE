@@ -11,11 +11,17 @@
                     <!-- Danh sách sản phẩm -->
                     <div x-show="showProductList" class="absolute left-0 mt-2 w-full bg-white border rounded-md shadow-md max-h-72 overflow-y-auto z-20">
                         <template x-for="product in products.filter(p => p.name.toLowerCase().includes(searchProduct.toLowerCase()) || p.barcode.includes(searchProduct))" :key="product.SKU">
-                            <div @click="addOrUpdateProduct(product); searchProduct = '';" class="px-4 py-4 hover:bg-gray-100 cursor-pointer hover:bg-sky-50 group flex flex-wrap items-center">
-                                <img :src="'{{ asset('/storage/') }}/' + product.image" class="w-14 h-14 object-cover">
-                                <div class="ml-4">
-                                    <p class="" x-text="product.name"></p>
-                                    <p class="text-gray-500 block" x-text="product.SKU"></p>
+                            <div @click="addOrUpdateProduct(product); searchProduct = '';" class="px-4 py-4 hover:bg-gray-100 cursor-pointer hover:bg-sky-50 group flex flex-wrap items-center justify-between">
+                                <div class="ml-4 flex items-center">
+                                    <img :src="'{{ asset('/storage/') }}/' + product.image" class="w-14 h-14 object-cover">
+                                    <div class="ml-4">
+                                        <p class="" x-text="product.name"></p>
+                                        <p class="text-gray-500 block" x-text="product.SKU"></p>
+                                    </div>
+                                </div>
+                                <div class="mr-4 flex flex-col">
+                                    <p class="font-gilroy_md text-base text-right" x-text="(product.prices[selectedPrice] || 0).toLocaleString('en-US')"></p>
+                                    <p class="">Tồn kho: <span class="text-blue-600" x-text="product.quantity"></span> | Có thế bán: <span class="text-blue-600" x-text="product.quantity"></span></p>
                                 </div>
                             </div>
                         </template>
@@ -48,7 +54,7 @@
                     <textarea placeholder="VD: Hàng tặng gói riêng" class="resize-none mt-2 w-full h-32 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="note">{{ old('note') }}</textarea>
                 </div>
                 <div class="w-full px-6">
-                    <label class="text-base mr-2 font-gilroy_md" for="tag">Tags @error('note')<p class="inline-block text-red-600 text-sm">{{ $message }}</p>@enderror</label>
+                    <label class="text-base mr-2 font-gilroy_md" for="tag">Tags @error('tag')<p class="inline-block text-red-600 text-sm">{{ $message }}</p>@enderror</label>
                     <textarea class="resize-none mt-2 w-full h-24 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="tag">{{ old('tag') }}</textarea>
                 </div>
             </div>
@@ -56,35 +62,54 @@
                 <div class="w-[70%] leading-10">
                     <p>Tổng tiền (<span x-text="totalProduct()"></span> sản phẩm)</p>
                     <div class="group relative w-full">
-                        <p onclick="handleShowContent('od-discount-tb')" class="text-blue-600" id="od-discount">Chiết khấu</p>
+                        <p onclick="handleShowContent('od-discount-tb')" class="cursor-pointer w-full h-fit text-blue-600" id="od-discount">Chiết khấu</p>
                         <div id="od-discount-tb" class="absolute top-8 mt-1 px-4 w-28 py-4 bg-white w-full text-center text-black text-xs rounded-md drop-shadow-lg z-10 hidden">
                             <div class="rotate-180 absolute left-10 -translate-x-1/2 -top-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-white filter drop-shadow-lg"></div>
                             <div class="flex justify-between w-full">
                                 <p class="text-left 2xl:w-[35%] py-2">Chiết khấu thường</p>
                                 <div class="w-[30%] border border-blue-600 rounded-sm flex justify-between">
-                                    <button type="button" class="h-full w-1/2" :class="{ 'bg-blue-600 text-white': selectedButton === 'value', 'bg-transparent text-black': selectedButton !== 'value' }" @click="selectedButton = 'value'">Giá trị</button>
-                                    <button type="button" class="h-full w-1/2 ml-1" :class="{ 'bg-blue-600 text-white': selectedButton === '%', 'bg-transparent text-black': selectedButton !== '%' }" @click="selectedButton = '%'">%</button>
+                                    <button type="button" class="h-full w-1/2" :class="{ 'bg-blue-600 text-white': selectedButton === 'amount', 'bg-transparent text-black': selectedButton !== 'amount' }" @click="selectedButton = 'amount'">Giá trị</button>
+                                    <button type="button" class="h-full w-1/2 ml-1" :class="{ 'bg-blue-600 text-white': selectedButton === 'percentage', 'bg-transparent text-black': selectedButton !== 'percentage' }" @click="selectedButton = 'percentage'">%</button>
+                                    <input type="hidden" name="individual_discount_type" x-bind:value="selectedButton">
                                 </div>
-                                <input class="w-[25%] py-2 pr-2 border-b border-b-gray-300 focus:outline-none text-right" type="number" value="0" @click="$el.select()">
+                                <input name="individual_discount_value" class="w-[25%] py-2 pr-2 border-b border-b-gray-300 focus:outline-none text-right" type="number" value="0" @click="$el.select()">
                             </div>
                         </div>
                     </div>
                     <p>Phí giao hàng</p>
                     <p>Phí hỗ trợ</p>
-                    <p class="text-blue-600">Mã giảm giá</p>
+                    <div class="group relative w-full">
+                        <p onclick="handleShowContent('od-discount-apply')" class="cursor-pointer w-full h-fit text-blue-600" id="od-discount">Mã giảm giá</p>
+                        <div id="od-discount-apply" class="absolute top-8 mt-1 px-4 w-28 py-4 bg-white w-full text-center text-black text-xs rounded-md drop-shadow-lg z-10 hidden">
+                            <div class="rotate-180 absolute left-10 -translate-x-1/2 -top-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-white filter drop-shadow-lg"></div>
+                            <div class="flex flex-col w-full ">
+                                <div class="flex justify-between">
+                                    <input name="discount_id" type="text" placeholder="Nhập mã khuyến mãi" class="w-[62%] pl-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <button type="button" class="h-full w-[35%] bg-blue-600 text-white py-2 rounded-sm">Áp dụng</button>
+                                </div>
+                                <p class="text-left text-red-600 ml-4 mt-2">*Không tìm thấy mã giảm giá</p>
+                            </div>
+                        </div>
+                    </div>
                     <p class="font-gilroy_md">Khách phải trả</p>
                     <p class="font-gilroy_md">Khách đã trả</p>
                     <p class="font-gilroy_md">Còn phải trả</p>
                 </div>
                 <div class="w-[30%] text-right leading-10">
-                    <p class="pr-2" x-text="totalMoney"></p>
+                    <p class="pr-2" x-ref="money" x-text="total"></p>
+                    <input type="hidden" name="sub_total" x-bind:value="total">
+{{--                    chiet khau--}}
                     <p class="pr-2">0</p>
-                    <input class="pr-2 border-b border-gray-300 focus:outline-none w-full text-right" value="0" @click="$el.select()">
-                    <input class="pr-2 border-b border-b-gray-300 focus:outline-none w-full text-right" value="0" @click="$el.select()">
+                    <input x-ref="ship" name="shipping_fee" class="pr-2 border-b border-gray-300 focus:outline-none w-full text-right" value="0" @click="$el.select()" @input="handleValidateDecimalInput($el); $dispatch('update-total')">
+                    <input x-ref="support" name="support_fee" class="pr-2 border-b border-b-gray-300 focus:outline-none w-full text-right" value="0" @click="$el.select()" @input="handleValidateDecimalInput($el); $dispatch('update-total')">
+{{--                    ma giam gia--}}
                     <p class="pr-2">0</p>
-                    <p class="font-gilroy_md pr-2">0</p>
-                    <p class="font-gilroy_md pr-2">0</p>
-                    <p class="font-gilroy_md pr-2">0</p>
+
+                    <p class="font-gilroy_md pr-2" x-text="finalTotal"></p>
+                    <input type="hidden" name="total_after_discount" x-bind:value="finalTotal">
+                    <input x-ref="paid" name="customer_paid" class="pr-2 border-b border-b-gray-300 focus:outline-none w-full text-right" value="0" @click="$el.select()" @input="handleValidateDecimalInput($el); $dispatch('update-paid')">
+                    <p class="font-gilroy_md pr-2" x-text="debt"></p>
+                    <input type="hidden" name="debt" x-bind:value="debt">
                 </div>
             </div>
         </div>

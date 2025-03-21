@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id',100)->primary();
             $table->string('customer_id',100);
             $table->string('staff_id',100);
-            $table->string('discount_id',100)->nullable();
+            $table->string('discount_id',100)->nullable(); // ma giam gia cua khuyen mai -> link voi bang discount
             $table->enum('individual_discount_type', ['percentage', 'amount'])->default('percentage'); // cach tinh chiet khau rieng cho khach
             $table->decimal('individual_discount_value',10,2)->default(0); // chiet khau rieng cho khach
             $table->decimal('sub_total',10,2)->default(0); // tong tien truoc giam gia

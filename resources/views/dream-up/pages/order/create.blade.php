@@ -12,8 +12,11 @@
         </div>
     </div>
 
-    <form action="" id="od-form-create" method="POST" class="w-[96%] flex flex-wrap gap-6 mb-10"
+    <form action="{{ route('od-store')}}" id="od-form-create" method="POST" class="w-[96%] flex flex-wrap gap-6 mb-10"
           x-data='{
+                "total": 0,
+                "finalTotal": 0,
+                "debt": 0,
                 "searchProduct": "",
                 "selectedProducts": [],
                 "products": @json($products ?? [], JSON_UNESCAPED_UNICODE),
@@ -22,7 +25,7 @@
                 "showCustomerList": false,
                 "showProductList": false,
                 "selectedPrice": "",
-                "selectedButton": "value",
+                "selectedButton": "amount",
                 "selectedDiscountPercent": 0,
                 "customers": @json($customers ?? [], JSON_UNESCAPED_UNICODE),
                 "updatePriceSelect": function() {
@@ -44,6 +47,9 @@
                    } else {
                        this.selectedProducts.push({...product, count: 1});
                    }
+                   this.totalMoney();
+                   this.finalTotalMoney();
+                   this.calDebt();
                 },
                 "totalProduct": function () {
                    return this.selectedProducts.reduce((total, product) => total + product.count, 0);
@@ -59,15 +65,40 @@
                     return isNaN(total) ? "0" : total.toLocaleString("en-US");
                 },
                 "totalMoney": function() {
-                    const total = this.selectedProducts.reduce((sum, product) => {
+                    const money = this.selectedProducts.reduce((sum, product) => {
                         return sum + this.calMoneyRaw(product);
                     }, 0);
-                    return total.toLocaleString("en-US");
+                    this.total = money.toLocaleString("en-US");
+                },
+                "finalTotalMoney": function() {
+                    const ship = parseInt((this.$refs.ship).value) * 1000;
+                    const support = parseInt((this.$refs.support).value) * 1000;
+                    const subTotal = parseInt(this.total.replace(/,/g, ""));
+                    const final = subTotal + (ship - support);
+                    this.finalTotal = isNaN(final) ? "0" : final.toLocaleString("en-US");
+                    this.calDebt();
+                },
+                "calDebt": function() {
+                    const final = parseInt(this.finalTotal.replace(/,/g, "")) || 0;
+                    const paid = parseInt(this.$refs.paid.value) * 1000 || 0;
+                    const debt = final - paid;
+                    this.debt = isNaN(debt) ? "0" : debt.toLocaleString("en-US");
+                },
+                "init": function() {
+                    this.$watch("selectedProducts", () => {
+                        this.totalMoney();
+                        this.finalTotalMoney();
+                    });
+                    this.$watch("$refs.ship.value", () => this.finalTotalMoney());
+                    this.$watch("$refs.support.value", () => this.finalTotalMoney());
+                    this.$watch("$refs.paid.value", () => this.calDebt());
                 }
-          }'>
+          }' @update-total.window="finalTotalMoney()" @update-paid.window="calDebt()">
         @csrf
         @include("dream-up.pages.order.info-customer")
         @include("dream-up.pages.order.info-product")
+        <input type="hidden" name="selected_price" x-bind:value="selectedPrice">
+        <input type="hidden" name="selected_products" x-bind:value="JSON.stringify(selectedProducts)">
     </form>
 
     <div class="h-fit flex items-center justify-end w-full mb-10 pr-6">

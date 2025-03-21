@@ -16,7 +16,7 @@
         </thead>
         <tbody class="divide-y divide-gray-200 cursor-pointer">
             @foreach($orders as $order)
-                <tr class="hover:bg-sky-50 group">
+                <tr class="hover:bg-sky-50 group" onclick="window.location='{{ route('od-show', $order->id) }}'">
                     <td class="p-4 text-blue-500 group-hover:underline">{{ $order->id }}</td>
                     <td class="p-4 text-center">{{ \Illuminate\Support\Carbon::parse($order->created_at)->format('d/m/Y') }}</td>
                     <td class="p-4 overflow-hidden">{{ $order->customer_name }}</td>
@@ -28,7 +28,7 @@
                             <div class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-neutral-100"></div>
                         </div>
                     </td>
-                    <td class="p-4 text-right">{{ number_format($order->total_after_discount, 3, ',', '.') }}</td>
+                    <td class="p-4 text-right">{{ number_format($order->total_after_discount, 0, '.', ',') }}</td>
                 </tr>
             @endforeach
         </tbody>

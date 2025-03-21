@@ -32,17 +32,20 @@
                             <p class="text-blue-500" x-text="product.SKU"></p>
                         </td>
                         <td class="p-4 text-center w[10%] h-20 flex justify-center items-center">
-                            <button type="button" @click.prevent="product.count > 1 ? product.count-- : 1" class="h-4 w-4 px-1 py-1 bg-gray-300 text-white rounded-full inline-flex justify-center items-center text-xs"><i class="fa-solid fa-minus"></i></button>
+                            <button type="button" @click.prevent="product.count > 1 ? product.count-- : 1; totalMoney(); finalTotalMoney();" class="h-4 w-4 px-1 py-1 bg-gray-300 text-white rounded-full inline-flex justify-center items-center text-xs"><i class="fa-solid fa-minus"></i></button>
                             <span x-text="product.count" class="px-6"></span>
-                            <button type="button" @click.prevent="product.count < product.quantity && product.count++" class="h-4 w-4 px-1 py-1 bg-gray-300 text-white rounded-full inline-flex justify-center items-center text-xs"><i class="fa-solid fa-plus"></i></button>
+                            <button type="button" @click.prevent="product.count < product.quantity && product.count++; totalMoney(); finalTotalMoney();" class="h-4 w-4 px-1 py-1 bg-gray-300 text-white rounded-full inline-flex justify-center items-center text-xs"><i class="fa-solid fa-plus"></i></button>
                         </td>
                         <td class="p-4 text-end w[10%]"><span x-text="(product.prices[selectedPrice] || 0).toLocaleString('en-US')"></span></td>
                         <td class="p-4 w[10%] flex justify-center items-end flex-col">
                             <span x-text="((selectedDiscountPercent / 100) * (product.prices[selectedPrice] || 0)).toLocaleString('en-US')"></span>
+                            <input type="hidden" name="value[]" x-bind:value="((selectedDiscountPercent / 100) * (product.prices[selectedPrice] || 0)).toLocaleString('en-US')">
                             <span class="text-red-600 text-xs" x-text="selectedDiscountPercent + '%'"></span>
+                            <input type="hidden" name="percent[]" x-bind:value="selectedDiscountPercent">
                         </td>
                         <td class="p-4 text-end w[10%]">
                             <span x-text="calMoney(product)"></span>
+                            <input type="hidden" name="total_amount[]" x-bind:value="calMoney(product)">
                         </td>
                         <td class="p-4  text-center w[10%]"><button @click="selectedProducts = selectedProducts.filter(p => p.SKU !== product.SKU)" class="text-gray-400 text-base"><i class="fa-solid fa-xmark"></i></button></td>
                     </tr>

@@ -66,6 +66,11 @@ Route::prefix('/admin/dreamup')->group(function(){
         Route::get('/',[OrderController::class,'index'])->name('od-index');
         Route::get('/create',[OrderController::class,'create'])->name('od-create');
         Route::post('/store',[OrderController::class,'store'])->name('od-store');
+        Route::get('/{order}/show',[OrderController::class,'show'])->name('od-show');
+        Route::get('/{order}/edit',[OrderController::class,'edit'])->name('od-edit');
+        Route::put('/{order}/update',[OrderController::class,'update'])->name('od-update');
+        Route::delete('/{order}/delete',[OrderController::class,'destroy'])->name('od-destroy');
+        Route::get('/search',[OrderController::class,'search'])->name('od-search');
     });
 
     Route::get('/import-order',[ImportOrderController::class,'index'])->name('io-index');

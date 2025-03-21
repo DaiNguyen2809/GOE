@@ -5,6 +5,7 @@
         <div class="w-full mt-4 mb-6">
             <div class="relative w-full px-6 flex items-center text-sm">
                 <div class="relative w-full" >
+                    <input type="hidden" name="customer_id" x-bind:value="selectedCustomer ? selectedCustomer.id : ''">
                     <!-- Ô tìm kiếm khách hàng -->
                     <i x-show="!selectedCustomer" class="fa-solid fa-magnifying-glass absolute left-4 top-2.5 w-6 h-6 text-gray-500 cursor-pointer"></i>
                     <input x-show="!selectedCustomer" type="text" x-model="search" @focus="showCustomerList = true" @click.away="showCustomerList = false" placeholder="Tìm theo tên, SĐT..." class="w-full px-12 py-2 border rounded-md shadow-sm">

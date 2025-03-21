@@ -222,7 +222,12 @@ function handleCloseContent(content) {
     ctn.classList.remove('block');
     ctn.classList.add('hidden');
 }
-
+function handleValidateDecimalInput(input) {
+    let value = input.value = input.value.replace(/[^0-9]/g, '');
+    if (value === '')
+        return input.value = 0;
+    input.value = parseInt(value).toLocaleString('en-US');
+}
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -240,6 +245,7 @@ $(document).ready(function () {
     }
 });
 
+window.handleValidateDecimalInput = handleValidateDecimalInput;
 window.handleCloseContent = handleCloseContent;
 window.handleShowContent = handleShowContent;
 window.handleConfirmDelete = handleConfirmDelete;

@@ -19,5 +19,23 @@ class Order extends Model
 
     public $keyType = 'string';
 
-    protected $fillable = ['staff_id', 'discount_id', 'individual_discount_type', 'individual_discount_value', 'total_price', 'order_status', 'created_at', 'updated_at'];
+    protected $fillable = ['customer_id' ,'staff_id', 'discount_id', 'individual_discount_type', 'individual_discount_value', 'sub_total', 'total_after_discount', 'debt', 'customer_paid', 'shipping_fee', 'support_fee', 'note', 'tag', 'status', 'payment_status'];
+
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function ($order) {
+            if (empty($order->id)) {
+                $lastestOrder = Order::where('id', 'like', 'SONO%')->latest('id')->first();
+
+                if ($lastestOrder) {
+                    $lastestOrder = (int) substr($lastestOrder->id, 5);
+                    $newNumber = str_pad($lastestOrder + 1, 5, "0", STR_PAD_LEFT);
+                } else
+                    $newNumber = '00000';
+
+                $order->id = 'SONO' . $newNumber;
+            }
+        });
+    }
 }
