@@ -71,6 +71,7 @@ Route::prefix('/admin/dreamup')->group(function(){
         Route::put('/{order}/update',[OrderController::class,'update'])->name('od-update');
         Route::delete('/{order}/delete',[OrderController::class,'destroy'])->name('od-destroy');
         Route::get('/search',[OrderController::class,'search'])->name('od-search');
+        Route::put('/{order}/cancel', [OrderController::class, 'cancel'])->name('od-cancel');
     });
 
     Route::get('/import-order',[ImportOrderController::class,'index'])->name('io-index');

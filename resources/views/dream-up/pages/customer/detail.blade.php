@@ -90,7 +90,7 @@
                     </div>
                     <div class="w-full pl-6">
                         <p class="mb-1.5">{{ $customer->price ?: '---' }}</p>
-                        <p class="mb-1.5">{{ $customer->discount ?: '---'}}</p>
+                        <p class="mb-1.5">{{ $customer->discount ?: '---'}}%</p>
                         <p>{{ $customer->payment ?: '---'}}</p>
                     </div>
                 </div>

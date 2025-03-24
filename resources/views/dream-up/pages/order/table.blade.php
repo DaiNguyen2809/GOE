@@ -1,7 +1,6 @@
 @php
     use App\Helpers\OrderHelper
 @endphp
-
 <div class="overflow-auto max-h-[calc(100vh-300px)] px-1 py-1 shadow-md rounded-lg"> <!-- Điều chỉnh max-height cho phù hợp -->
     <table class="table-auto w-full border-collapse text-sm">
         <thead class="bg-slate-800 sticky top-0 z-10 shadow-md">

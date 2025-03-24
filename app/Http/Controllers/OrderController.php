@@ -158,7 +158,80 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        $orderData = DB::table('orders as od')
+            ->leftJoin('customers as c', 'od.customer_id', '=', 'c.id')
+            ->leftJoin('addresses as adr', 'adr.customer_id', '=', 'c.id')
+            ->leftJoin('wards as w', 'w.id', '=', 'adr.ward_id')
+            ->leftJoin('areas as a', 'a.id', '=', 'w.id')
+            ->leftJoin('customer_categories as cc', 'cc.id', '=', 'c.customer_category')
+            ->leftJoin('price_types as pt', 'pt.type_id', '=', 'cc.price_type_id')
+            ->leftJoin('payments as p', 'p.id', '=', 'cc.payment_cat')
+            ->select('od.*', 'c.name as cus_name', 'c.phone', 'c.email', 'c.debt as cus_debt',
+                'c.total_expenditure', 'c.number_orders', 'c.total_products', 'c.total_return_products', 'c.point',
+                'adr.address', 'w.name as ward', 'a.name as area', 'cc.name as cus_cat_name', 'cc.price_type_id', 'cc.payment_cat', 'p.name as payment', 'pt.name as price_name')
+            ->where('od.id', $order->id)->first();
+//        dd($orderData);
+        $orderDetails = DB::table('order_details as odd')
+            ->leftJoin('products as p', 'odd.product_SKU', '=', 'p.SKU')
+            ->select('odd.*', 'p.image', 'p.name as product_name')
+            ->where('odd.order_id', $order->id)
+            ->get();
 
+        if ($orderData) {
+            $formattedOrder = [
+                'id' => $orderData->id,
+                'customer_id' => $orderData->customer_id,
+                'staff_id' => $orderData->staff_id,
+                'discount_id' => $orderData->discount_id,
+                'individual_discount_type' => $orderData->individual_discount_type,
+                'individual_discount_value' => $orderData->individual_discount_value,
+                'sub_total' => $orderData->sub_total,
+                'total_after_discount' => $orderData->total_after_discount,
+                'debt' => $orderData->debt,
+                'customer_paid' => $orderData->customer_paid,
+                'shipping_fee' => $orderData->shipping_fee,
+                'support_fee' => $orderData->support_fee,
+                'note' => $orderData->note,
+                'tag' => $orderData->tag,
+                'created_at' => $orderData->created_at,
+                'updated_at' => $orderData->updated_at,
+                'status' => $orderData->status,
+                'payment_status' => $orderData->payment_status,
+                'cus_name' => $orderData->cus_name,
+                'phone' => $orderData->phone,
+                'email' => $orderData->email,
+                'address' => $orderData->address,
+                'ward' => $orderData->ward,
+                'area' => $orderData->area,
+                'cus_cat_name' => $orderData->cus_cat_name,
+                'price_type_id' => $orderData->price_type_id,
+                'payment_cat' => $orderData->payment_cat,
+                'payment' => $orderData->payment,
+                'price_name' => $orderData->price_name,
+                'cus_debt' => $orderData->cus_debt,
+                'total_expenditure' => $orderData->total_expenditure,
+                'number_orders' => $orderData->number_orders,
+                'total_products' => $orderData->total_products,
+                'total_return_products' => $orderData->total_return_products,
+                'point' => $orderData->point,
+                'products' => $orderDetails->map(function ($detail) {
+                    return [
+                        'SKU' => $detail->product_SKU,
+                        'product_name' => $detail->product_name,
+                        'quantity' => $detail->quantity,
+                        'price' => $detail->price,
+                        'discount_percent' => $detail->discount_percent,
+                        'discount_value' => $detail->discount_value,
+                        'total_amount' => $detail->total_amount,
+                        'image' => $detail->image,
+                    ];
+                })->toArray(),
+            ];
+        } else {
+            $formattedOrder = [];
+        }
+//        dd($formattedOrder);
+        return view('dream-up.pages.order.detail', compact('formattedOrder'));
     }
 
     /**
@@ -183,5 +256,10 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function cancel(Order $order)
+    {
+
     }
 }
