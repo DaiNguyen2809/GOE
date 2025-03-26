@@ -11,7 +11,7 @@ use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ImportOrderController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\ProductCategoryController;
-
+use App\Http\Controllers\VietQRController;
 
 Route::prefix('/admin/dreamup')->group(function(){
     Route::view('/','dream-up/admin-dream')->name('root');
@@ -67,11 +67,13 @@ Route::prefix('/admin/dreamup')->group(function(){
         Route::get('/create',[OrderController::class,'create'])->name('od-create');
         Route::post('/store',[OrderController::class,'store'])->name('od-store');
         Route::get('/{order}/show',[OrderController::class,'show'])->name('od-show');
-        Route::get('/{order}/edit',[OrderController::class,'edit'])->name('od-edit');
+        Route::get('/{formattedOrder}/edit',[OrderController::class,'edit'])->name('od-edit');
         Route::put('/{order}/update',[OrderController::class,'update'])->name('od-update');
         Route::delete('/{order}/delete',[OrderController::class,'destroy'])->name('od-destroy');
         Route::get('/search',[OrderController::class,'search'])->name('od-search');
         Route::put('/{order}/cancel', [OrderController::class, 'cancel'])->name('od-cancel');
+        Route::put('/{order}/approval', [OrderController::class, 'approval'])->name('od-approval');
+        Route::put('/{order}/payment', [OrderController::class, 'payment'])->name('od-payment');
     });
 
     Route::get('/import-order',[ImportOrderController::class,'index'])->name('io-index');
@@ -85,5 +87,7 @@ Route::prefix('/admin/dreamup')->group(function(){
     Route::get('/supplier',[SupplierController::class,'index'])->name('sp-index');
 
 //    Route::get('/supplier-category',[SupplierCategory::class,'index'])->name('sp-cat-index');
+
+    Route::post('/generateQR', [VietQRController::class, 'generateQR'])->name('vq-generateQR');
 
 });

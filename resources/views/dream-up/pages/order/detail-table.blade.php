@@ -1,7 +1,7 @@
 <div class="w-full mt-4 flex mb-6">
     <div class="w-full h-fit px-4 mt-4 flex flex-col justify-center items-center gap-4">
         <table class="table-auto w-full border text-sm">
-            <thead class="bg-sky-950 sticky top-0 z-10 shadow-md">
+            <thead class="bg-sky-950  top-0 z-10 shadow-md">
             <tr class="text-left text-white h-12">
                 <th class="p-4 text-center w-[2%]">STT</th>
                 <th class="p-4 text-center w-[8%]">Ảnh</th>

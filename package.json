@@ -7,7 +7,6 @@
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
-        "axios": "^1.7.4",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.2.0",
         "postcss": "^8.4.47",
@@ -16,7 +15,9 @@
     },
     "dependencies": {
         "alpine": "^0.2.1",
-        "livewire": "^0.6.1",
+        "axios": "^1.8.4",
+        "html2canvas": "^1.4.1",
+        "print-js": "^1.6.0",
         "sweetalert2": "^11.6.13"
     }
 }

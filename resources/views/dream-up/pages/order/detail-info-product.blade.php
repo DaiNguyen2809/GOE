@@ -18,7 +18,7 @@
 
             <div class="w-[40%] flex px-6 py-6">
                 <div class="w-[70%] leading-10">
-                    <p>Tổng tiền (<span>0</span> sản phẩm)</p>
+                    <p>Tổng tiền (<span>()</span> sản phẩm)</p>
                     <p class="w-full h-fit text-blue-600">Chiết khấu</p>
                     <p>Phí giao hàng</p>
                     <p>Phí hỗ trợ</p>
@@ -34,7 +34,7 @@
                     <p class="pr-2">{{ number_format($formattedOrder['support_fee'], 0, '.', ',') }}</p>
                     <p class="pr-2">{{ $formattedOrder['discount_id'] ?: 0 }}</p>
                     <p class="font-gilroy_md pr-2">{{ number_format($formattedOrder['total_after_discount'], 0, '.', ',') }}</p>
-                    <p class="font-gilroy_md pr-2">{{ number_format($formattedOrder['total_after_discount'], 0, '.', ',') }}</p>
+                    <p class="font-gilroy_md pr-2">{{ number_format($formattedOrder['customer_paid'], 0, '.', ',') }}</p>
                     <p class="font-gilroy_md pr-2">{{ number_format($formattedOrder['debt'], 0, '.', ',') }}</p>
                 </div>
             </div>

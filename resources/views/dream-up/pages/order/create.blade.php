@@ -92,6 +92,11 @@
                     this.$watch("$refs.ship.value", () => this.finalTotalMoney());
                     this.$watch("$refs.support.value", () => this.finalTotalMoney());
                     this.$watch("$refs.paid.value", () => this.calDebt());
+                    this.$watch("selectedPrice", () => {
+                        this.totalMoney();
+                        this.finalTotalMoney();
+                        this.calDebt();
+                    });
                 }
           }' @update-total.window="finalTotalMoney()" @update-paid.window="calDebt()">
         @csrf

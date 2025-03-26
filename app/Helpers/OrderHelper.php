@@ -39,4 +39,50 @@ class OrderHelper {
             'unpaid' => 'Chưa thanh toán'
         };
     }
+
+    public static function getStatusPaymentText($status)
+    {
+        return match ($status) {
+            'paid' => 'Đơn hàng đã thanh toán',
+            'unpaid' => 'Đơn hàng chờ thanh toán'
+        };
+    }
+
+    public static function getStatusCancelButton($status, $id)
+    {
+        return match ($status) {
+            'pending' => '<button onclick="handleConfirmDelete(\'' . $id . '\', \'od-modal-cancel\', \'od-form-cancel\', \'' . route('od-cancel', '__id__') . '\')" type="button" class="w-[20%] 2xl:w-[13%] px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center text-sm"><i class="fa-solid fa-xmark mr-2"></i>Hủy đơn hàng</button>',
+            'payment' => '<button onclick="handleConfirmDelete(\'' . $id . '\', \'od-modal-cancel\', \'od-form-cancel\', \'' . route('od-cancel', '__id__') . '\')" type="button" class="w-[20%] 2xl:w-[13%] px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center text-sm"><i class="fa-solid fa-xmark mr-2"></i>Hủy đơn hàng</button>',
+            'packaging' => '<button onclick="handleConfirmDelete(\'' . $id . '\', \'od-modal-cancel\', \'od-form-cancel\', \'' . route('od-cancel', '__id__') . '\')" type="button" class="w-[20%] 2xl:w-[13%] px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center text-sm"><i class="fa-solid fa-xmark mr-2"></i>Hủy đơn hàng</button>',
+            'packed' => '<button style="cursor: not-allowed !important;" class="w-[18%] 2xl:w-[10%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-xmark mr-2"></i></i>Hủy đơn hàng</button>',
+            'canceled' => '<button style="cursor: not-allowed !important;" class="w-[18%] 2xl:w-[10%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md !cursor-not-allowed text-center text-sm"><i class="fa-solid fa-xmark mr-2"></i></i>Hủy đơn hàng</button>',
+            'completed' => '<button style="cursor: not-allowed !important;" class="w-[18%] 2xl:w-[10%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md !cursor-not-allowed text-center text-sm"><i class="fa-solid fa-xmark mr-2"></i></i>Hủy đơn hàng</button>',
+        };
+    }
+
+    public static function getStatusApprovalButton($status, $id)
+    {
+        return match ($status) {
+            'pending' => '<button onclick="handleConfirmDelete(\'' . $id . '\', \'od-modal-approval\', \'od-form-approval\', \'' . route('od-approval', '__id__') . '\')" type="button" class="w-[20%] 2xl:w-[15%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-check mr-2"></i>Duyệt đơn hàng</button>',
+            'payment' => '<button type="button" class="w-[20%] 2xl:w-[15%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-box mr-2"></i>Yêu cầu đóng gói</button>',
+            'packaging' => '<button type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+            'packed' => '<button style="cursor: not-allowed !important;" type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+            'canceled' => '',
+            'completed' => '<button style="cursor: not-allowed !important;" type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+        };
+    }
+
+    public static function getStatusUpdateButton($status, $id)
+    {
+        return match ($status) {
+            'pending' => '<a href="\{{ '.route('od-edit', $id).' }}\" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</a>',
+            'payment' => '<a href="\{{ '.route('od-edit', $id).' }}\" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</a>',
+            'packaging' => '<a href="\{{ '.route('od-edit', $id).' }}\" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</a>',
+            'packed' => '<button style="cursor: not-allowed !important;" type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+            'canceled' => '',
+            'completed' => '<button style="cursor: not-allowed !important;" type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+        };
+    }
+
+
 }

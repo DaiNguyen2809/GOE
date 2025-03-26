@@ -1,5 +1,7 @@
 import './bootstrap';
 import Swal from 'sweetalert2';
+import html2canvas from 'html2canvas';
+import printJS from "print-js";
 window.Swal = Swal;  // Đảm bảo SweetAlert được load
 
 function handleAjaxPagination(containerSelector, tableSelector, paginationSelector) {
@@ -228,6 +230,116 @@ function handleValidateDecimalInput(input) {
         return input.value = 0;
     input.value = parseInt(value).toLocaleString('en-US');
 }
+function handleGenerateQRCode() {
+    let amount = $('#amount_qr').val();
+    let content = $('#content_qr').val();
+    let csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    $.ajax({
+        url: "/admin/dreamup/generateQR",
+        method: "POST",
+        data: {
+            _token: csrfToken,
+            amount_qr: amount,
+            content_qr: content
+        },
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        success: function(response) {
+            $('#qrCode').html('<img class="pl-3 w-[432px] h-[432px]" src="' + response.qr_url + '" />');
+            $('#amount_qr_show').text(Number(response.amount).toLocaleString('en-US'));
+            $('#content_qr_show').text(response.content);
+            $('#account_name').text(response.account_name);
+            $('#account_no').text(response.account_no);
+        },
+        error: function(xhr) {
+            alert("Có lỗi xảy ra!");
+        }
+    });
+}
+function handleCaptureDivToImage() {
+    let targetDiv = document.getElementById('vietqr-box'); // ID của div cần chụp
+
+    html2canvas(targetDiv, { useCORS: true }).then(canvas => {
+        let imageURL = canvas.toDataURL('image/png'); // Chuyển thành base64
+        let link = document.createElement('a');
+        link.href = imageURL;
+        link.download = 'vietqr.png'; // Tên file khi tải về
+        link.click();
+    });
+}
+function handleCopyDivToClipboard() {
+    let targetDiv = document.getElementById('vietqr-box'); // ID của div cần chụp
+
+    html2canvas(targetDiv, { useCORS: true }).then(canvas => {
+        canvas.toBlob(blob => {
+            // Kiểm tra xem trình duyệt có hỗ trợ clipboard API không
+            if (navigator.clipboard && navigator.clipboard.write) {
+                let item = new ClipboardItem({ "image/png": blob });
+                navigator.clipboard.write([item]).then(() => {
+                    console.log("Sao chép ảnh thành côntg");
+                }).catch(err => {
+                    console.error("Lỗi sao chép ảnh:", err);
+                    alert("Không thể sao chép ảnh, hãy thử lại!");
+                });
+            } else {
+                alert("Trình duyệt của bạn không hỗ trợ sao chép ảnh!");
+            }
+        });
+    });
+}
+function handlePrintOrder() {
+    $('#print-order').removeClass('hidden');
+    printJS({
+        printable: 'print-order',
+        type: 'html',
+        css: [
+            '/build/assets/app.css',
+        ],
+        style: `
+            .w-874px { width: 874px; }
+            .h-1240px { height: 1240px; }
+            .p-6 { padding: 1.5rem; }
+            .mt-16 { margin-top: 4rem; }
+            .mt-8 { margin-top: 2rem; }
+            .my-4 { margin-top: 1rem; margin-bottom: 1rem; }
+            .mt-4 { margin-top: 1rem; }
+            .mr-2 { margin-right: 0.5rem; }
+            .ml-2 { margin-left: 0.5rem; }
+            .mt-2 { margin-top: 0.5rem; }
+            .w-30pct { width: 30%; }
+            .w-full { width: 100%; }
+
+            .text-xs { font-size: 0.75rem; }
+            .text-sm { font-size: 0.875rem; }
+            .text-base { font-size: 1rem; }
+            .text-2xl { font-size: 1.5rem; }
+            .font-bold { font-weight: 700; }
+            .text-center { text-align: center; }
+            .text-right { text-align: right; }
+
+            .bg-gray-200 { background-color: #e5e7eb; }
+            .border-gray-300 { border-color: #d1d5db; }
+
+            .border-collapse { border-collapse: collapse; }
+            .border { border: 1px solid #d1d5db; }
+            .p-2 { padding: 0.5rem; }
+            .border-t { border-top: 1px solid #d1d5db; }
+
+            .flex { display: flex; }
+            .flex-col { flex-direction: column; }
+            .justify-between { justify-content: space-between; }
+            .items-center { align-items: center; }
+
+
+        `,
+        onPrintDialogClose: function() {
+            $('#print-order').addClass('hidden');
+        }
+    });
+}
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -245,6 +357,10 @@ $(document).ready(function () {
     }
 });
 
+window.handlePrintOrder = handlePrintOrder;
+window.handleGenerateQRCode = handleGenerateQRCode;
+window.handleCopyDivToClipboard = handleCopyDivToClipboard;
+window.handleCaptureDivToImage = handleCaptureDivToImage;
 window.handleValidateDecimalInput = handleValidateDecimalInput;
 window.handleCloseContent = handleCloseContent;
 window.handleShowContent = handleShowContent;
