@@ -8,11 +8,11 @@
             <div class="w-[60%]">
                 <div class="w-full px-6 py-6">
                     <label class="text-base mr-2 font-gilroy_md" for="note">Ghi chú đơn hàng @error('note')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                    <textarea readonly class="resize-none mt-2 w-full h-32 pl-3 pr-4 py-2 border border-gray-300 rounded-sm" name="note">{{ old('note', "Chưa có ghi chú") }}</textarea>
+                    <textarea readonly class="resize-none mt-2 w-full h-32 pl-3 pr-4 py-2 border border-gray-300 rounded-sm" name="note">{{ old('note', $formattedOrder['note'] ?? 'Chưa có ghi chú') }}</textarea>
                 </div>
                 <div class="w-full px-6">
                     <label class="text-base mr-2 font-gilroy_md" for="tag">Tags @error('tag')<p class="inline-block text-red-600 text-sm">{{ $message }}</p>@enderror</label>
-                    <textarea class="resize-none mt-2 w-full h-24 pl-3 pr-4 py-2 border border-gray-300 rounded-sm" name="tag">{{ old('tag', "Chưa có tag") }}</textarea>
+                    <textarea class="resize-none mt-2 w-full h-24 pl-3 pr-4 py-2 border border-gray-300 rounded-sm" name="tag">{{ old('tag', $formattedOrder['tag'] ?? 'Chưa có tag') }}</textarea>
                 </div>
             </div>
 

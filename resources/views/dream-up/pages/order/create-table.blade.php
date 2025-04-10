@@ -34,7 +34,7 @@
                         <td class="p-4 text-center w[10%] h-20 flex justify-center items-center">
                             <button type="button" @click.prevent="product.count > 1 ? product.count-- : 1; totalMoney(); finalTotalMoney();" class="h-4 w-4 px-1 py-1 bg-gray-300 text-white rounded-full inline-flex justify-center items-center text-xs"><i class="fa-solid fa-minus"></i></button>
                             <span x-text="product.count" class="px-6"></span>
-                            <button type="button" @click.prevent="product.count < product.quantity && product.count++; totalMoney(); finalTotalMoney();" class="h-4 w-4 px-1 py-1 bg-gray-300 text-white rounded-full inline-flex justify-center items-center text-xs"><i class="fa-solid fa-plus"></i></button>
+                            <button type="button" @click.prevent="product.count < getProductStock(product.SKU) && product.count++; totalMoney(); finalTotalMoney();" class="h-4 w-4 px-1 py-1 bg-gray-300 text-white rounded-full inline-flex justify-center items-center text-xs"><i class="fa-solid fa-plus"></i></button>
                         </td>
                         <td class="p-4 text-end w[10%]"><span x-text="(product.prices[selectedPrice] || 0).toLocaleString('en-US')"></span></td>
                         <td class="p-4 w[10%] flex justify-center items-end flex-col">

@@ -96,8 +96,8 @@
             <h1 class="text-base font-gilroy_md mt-1 py-6 px-6 flex justify-between">
                 <span><i class="fa-solid fa-wallet text-gray-500 mr-2"></i>{!! OrderHelper::getStatusPaymentText($formattedOrder['payment_status']) !!}</span>
                 <div>
-                    <span onclick="handleShowContent('qr-modal')" class="w-[12%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-qrcode mr-2"></i>Tạo mã chuyển khoản</span>
-                    <span onclick="handleShowContent('payment-modal')" class="w-[12%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-regular fa-credit-card mr-2"></i>Thanh toán</span>
+                    {!! OrderHelper::getQrCodeButton($formattedOrder['payment_status']) !!}
+                    {!! OrderHelper::getPaymentButton($formattedOrder['payment_status']) !!}
                 </div>
             </h1>
             <div class="bg-gray-300 w-full h-px mt-2"></div>

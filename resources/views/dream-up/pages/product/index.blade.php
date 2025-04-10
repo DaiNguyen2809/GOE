@@ -17,8 +17,8 @@
                 <option>DREAM UP</option>
                 <option>SKY UP</option>
             </select>
-            <button class="px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white">Xuất file</button>
-            <a href="{{ route('pd-create') }}" class="px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white">Thêm sản phẩm</a>
+            <button class="px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white"><i class="fa-regular fa-file-excel mr-2"></i> Xuất file</button>
+            <a href="{{ route('pd-create') }}" class="px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white"><i class="fa-solid fa-plus mr-2"></i> Thêm sản phẩm</a>
         </div>
     </div>
 

@@ -1,5 +1,6 @@
 <?php
 namespace App\Helpers;
+use App\Models\Order;
 class OrderHelper {
     public static function getStatusText($status)
     {
@@ -64,25 +65,42 @@ class OrderHelper {
     {
         return match ($status) {
             'pending' => '<button onclick="handleConfirmDelete(\'' . $id . '\', \'od-modal-approval\', \'od-form-approval\', \'' . route('od-approval', '__id__') . '\')" type="button" class="w-[20%] 2xl:w-[15%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-check mr-2"></i>Duyệt đơn hàng</button>',
-            'payment' => '<button type="button" class="w-[20%] 2xl:w-[15%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-box mr-2"></i>Yêu cầu đóng gói</button>',
-            'packaging' => '<button type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
-            'packed' => '<button style="cursor: not-allowed !important;" type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+            'payment' => '<a href="'.route('pk-index').'"  class="w-[22%] 2xl:w-[15%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-box mr-2"></i>Yêu cầu đóng gói</a>',
+            'packaging' => '',
+            'packed' => '',
             'canceled' => '',
-            'completed' => '<button style="cursor: not-allowed !important;" type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+            'completed' => '',
         };
     }
 
     public static function getStatusUpdateButton($status, $id)
     {
+        $order = Order::find($id);
         return match ($status) {
-            'pending' => '<a href="\{{ '.route('od-edit', $id).' }}\" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</a>',
-            'payment' => '<a href="\{{ '.route('od-edit', $id).' }}\" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</a>',
-            'packaging' => '<a href="\{{ '.route('od-edit', $id).' }}\" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</a>',
-            'packed' => '<button style="cursor: not-allowed !important;" type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+            'pending' => '<a href="'.route('od-edit', $id).'" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</a>',
+            'payment' => ($order && $order->payment_status === 'unpaid')
+                ? '<a href="'.route('od-edit', $id).'" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i>Cập nhật đơn hàng</a>'
+                : '',
+            'packaging' => '',
+            'packed' => '',
             'canceled' => '',
-            'completed' => '<button style="cursor: not-allowed !important;" type="button" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-gray-100 border border-gray-600 text-gray-600 font-gilroy rounded-md text-center text-sm"><i class="fa-solid fa-pen-to-square mr-2"></i></i>Cập nhật đơn hàng</button>',
+            'completed' => '',
         };
     }
 
+    public static function getQrCodeButton($status)
+    {
+        return match ($status) {
+            'paid' => '',
+            'unpaid' => '<span onclick="handleShowContent(\'qr-modal\')" class="w-[12%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-qrcode mr-2"></i>Tạo mã chuyển khoản</span>'
+        };
+    }
 
+    public static function getPaymentButton($status)
+    {
+        return match ($status) {
+            'paid' => '',
+            'unpaid' => '<span onclick="handleShowContent(\'payment-modal\')" class="w-[12%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-regular fa-credit-card mr-2"></i>Thanh toán</span>'
+        };
+    }
 }

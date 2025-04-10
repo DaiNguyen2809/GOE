@@ -12,6 +12,7 @@ use App\Http\Controllers\ImportOrderController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\VietQRController;
+use App\Http\Controllers\PackagingOrderController;
 
 Route::prefix('/admin/dreamup')->group(function(){
     Route::view('/','dream-up/admin-dream')->name('root');
@@ -67,9 +68,8 @@ Route::prefix('/admin/dreamup')->group(function(){
         Route::get('/create',[OrderController::class,'create'])->name('od-create');
         Route::post('/store',[OrderController::class,'store'])->name('od-store');
         Route::get('/{order}/show',[OrderController::class,'show'])->name('od-show');
-        Route::get('/{formattedOrder}/edit',[OrderController::class,'edit'])->name('od-edit');
+        Route::get('/{order}/edit',[OrderController::class,'edit'])->name('od-edit');
         Route::put('/{order}/update',[OrderController::class,'update'])->name('od-update');
-        Route::delete('/{order}/delete',[OrderController::class,'destroy'])->name('od-destroy');
         Route::get('/search',[OrderController::class,'search'])->name('od-search');
         Route::put('/{order}/cancel', [OrderController::class, 'cancel'])->name('od-cancel');
         Route::put('/{order}/approval', [OrderController::class, 'approval'])->name('od-approval');
@@ -80,7 +80,10 @@ Route::prefix('/admin/dreamup')->group(function(){
 
     Route::get('/stock',[StockController::class,'index'])->name('st-index');
 
-    Route::get('/packaging',[PackageController::class,'index'])->name('pk-index');
+    Route::prefix('/packaging')->group(function(){
+        Route::get('/', [PackagingOrderController::class,'index'])->name('pk-index');
+        Route::get('/create', [PackagingOrderController::class,'create'])->name('pk-create');
+    });
 
     Route::get('/discount',[DiscountController::class,'index'])->name('dc-index');
 

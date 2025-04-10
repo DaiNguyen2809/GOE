@@ -5,14 +5,13 @@
         <div class="w-full mt-4 mb-6">
             <div class="relative w-full px-6 flex items-center text-sm">
                 <div class="relative w-full" >
-                    <input type="hidden" name="customer_id" x-bind:value="selectedCustomer ? selectedCustomer.id : ''">
                     <!-- Ô tìm kiếm khách hàng -->
                     <i x-show="!selectedCustomer" class="fa-solid fa-magnifying-glass absolute left-4 top-2.5 w-6 h-6 text-gray-500 cursor-pointer"></i>
                     <input x-show="!selectedCustomer" type="text" x-model="search" @focus="showCustomerList = true" @click.away="showCustomerList = false" placeholder="Tìm theo tên, SĐT..." class="w-full px-12 py-2 border rounded-md shadow-sm">
                     <!-- Danh sách khách hàng -->
                     <div x-show="showCustomerList"  class="absolute left-0 mt-2 w-full bg-white border rounded-md shadow-md max-h-60 overflow-y-auto">
                         <template x-for="customer in customers.filter(c => c.name.toLowerCase().includes(search.toLowerCase()) || c.phone.includes(search))" :key="customer.id">
-                            <div @click="selectedCustomer = customer; search = customer.name; updatePriceSelect()" class="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:bg-sky-50 group flex-col">
+                            <div @click="selectedCustomer = customer; search = customer.name; displayName = customer.name; displayWard = customer.ward_name; displayArea = customer.area_name; displayCusId = customer.id; updatePriceSelect()" class="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:bg-sky-50 group flex-col">
                                 <p x-text="customer.name" class="group-hover:text-blue-500 w-full"></p>
                                 <p x-text="customer.phone" class="font-gilroy_md group-hover:text-blue-500 w-full"></p>
                             </div>
@@ -28,18 +27,18 @@
             <template x-if="selectedCustomer">
                 <div>
                     <div class="relative w-full px-6 flex items-center text-sm">
-                        <p class="text-2xl text-blue-600" x-text="selectedCustomer.name + ' - ' + selectedCustomer.phone"></p>
-                        <button type="button" @click="selectedCustomer = null; search = '';" class="ml-8 text-gray-400 text-2xl"><i class="fa-solid fa-xmark"></i></button>
+                        <p class="text-2xl text-blue-600" x-text="displayName + ' - ' + selectedCustomer.phone"></p>
+                        <button type="button" @click="selectedCustomer = null; search = ''; displayName = ''; displayWard = ''; displayArea = ''; displayCusId = '';" class="ml-8 text-gray-400 text-2xl"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                     <div class="w-full flex gap-4">
                         <div class="w-[55%] h-60 px-6 mt-4 flex flex-col">
                             <div class="mt-4">
                                 <p class="font-gilroy_md">ĐỊA CHỈ GIAO HÀNG</p>
-                                <p x-show="selectedCustomer && selectedCustomer.address && selectedCustomer.ward_name && selectedCustomer.area_name" x-text="selectedCustomer.address + ', ' + selectedCustomer.ward_name + ', ' + selectedCustomer.area_name"></p>
+                                <p x-show="selectedCustomer && selectedCustomer.address && displayWard && displayArea" x-text="selectedCustomer.address + ', ' + displayWard + ', ' + displayArea"></p>
                             </div>
                             <div class="mt-10">
                                 <p class="font-gilroy_md">LIÊN HỆ</p>
-                                <p x-text="'email: ' + selectedCustomer.email"></p>
+                                <p x-text="'Email: ' + selectedCustomer.email"></p>
                                 <p x-text="'Số điện thoại: ' + selectedCustomer.phone"></p>
                             </div>
                         </div>
@@ -70,7 +69,7 @@
         <div class="w-full mt-4 mb-6">
             <div class="w-full px-6">
                 <label for="staff">Bán bởi<p class="text-red-600 inline-block mr-2">*</p> @error('staff')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                <select name="staff" class=" mt-2 w-full h-11 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select name="staff" class=" mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="" selected disabled>Chọn nhân viên</option>
                     {{--                            @foreach($categories as $categorie)--}}
                     {{--                                <option value="{{ $categorie->id }}" {{ old('product_category') == $categorie->id ? 'selected' : '' }}>{{ $categorie->name }}</option>--}}
@@ -79,7 +78,7 @@
             </div>
             <div class="w-full px-6 mt-4">
                 <label class="mr-2" for="id">Mã đơn @error('id')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                <textarea class="resize-none mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="id">{{ old('id') }}</textarea>
+                <input readonly class="mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-600 bg-gray-100 text-gray-600 rounded-md" type="text" name="id" value="{{ $formattedOrder['id'] }}">
             </div>
         </div>
     </div>

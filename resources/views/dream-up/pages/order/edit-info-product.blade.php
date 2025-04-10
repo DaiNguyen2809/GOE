@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="mr-4 flex flex-col">
                                     <p class="font-gilroy_md text-base text-right" x-text="(product.prices[selectedPrice] || 0).toLocaleString('en-US')"></p>
-                                    <p class="">Tồn kho: <span class="text-blue-600" x-text="product.quantity"></span> | Có thế bán: <span class="text-blue-600" x-text="product.quantity"></span></p>
+                                    <p class="">Tồn kho: <span class="text-blue-600" x-text="product.product_quantity"></span> | Có thế bán: <span class="text-blue-600" x-text="product.product_quantity"></span></p>
                                 </div>
                             </div>
                         </template>
@@ -31,9 +31,9 @@
                 <button type="button" class="w-[13%] text-center px-4 py-2 border border-t-gray-300 border-r-gray-300 border-b-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">Chọn nhanh</button>
                 {{--tao the select ao--}}
                 <div class="ml-4 relative w-[17%]">
-                    <select x-ref="priceSelect" @change="selectedPrice = $event.target.value" id="here" name="customer_price" class="block w-full appearance-none bg-white border border-gray-300 px-4 py-2 pr-10 rounded-md focus:outline-none">
+                    <select x-model="selectedPrice" x-ref="priceSelect" @change="selectedPrice = $event.target.value" id="here" name="customer_price" class="block w-full appearance-none bg-white border border-gray-300 px-4 py-2 pr-10 rounded-md focus:outline-none">
                         @foreach($price_types as $price_type)
-                            <option value="{{ (string) $price_type->type_id }}">{{ $price_type->price_name }}</option>
+                            <option value="{{ (string) $price_type->type_id }}" {{ old('customer_price', $selected_price ?? '') == $price_type->type_id ? 'selected' : '' }}>{{ $price_type->price_name }}</option>
                         @endforeach
                     </select>
                     <!-- Tạo mũi tên bằng CSS -->
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        @include("dream-up.pages.order.create-table")
+        @include("dream-up.pages.order.edit-table")
         <div class="bg-gray-300 w-full h-px mt-2"></div>
 
         <div class="w-full mt-4 flex h-fit mb-6">

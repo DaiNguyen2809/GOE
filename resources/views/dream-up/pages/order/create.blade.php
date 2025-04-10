@@ -7,8 +7,8 @@
             <a href="{{ route('od-index') }}" class="ml-2 text-base text-gray-500 group-hover:underline">Quay lại danh sách hóa đơn</a>
         </div>
         <div class="h-full flex items-center justify-end w-[68%] 2xl:w-[74%]">
-            <a href="{{ route('od-index') }}" class="w-[12%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-ban mr-2"></i>Hủy</a>
-            <button type="submit" form="od-form-create" class="w-[20%] 2xl:w-[13%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-check mr-2"></i></i>Tạo đơn hàng</button>
+            <a href="{{ route('od-index') }}" class="w-[12%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-ban mr-2"></i> Hủy</a>
+            <button type="submit" form="od-form-create" class="w-[20%] 2xl:w-[13%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-check mr-2"></i> Tạo đơn hàng</button>
         </div>
     </div>
 
@@ -20,6 +20,7 @@
                 "searchProduct": "",
                 "selectedProducts": [],
                 "products": @json($products ?? [], JSON_UNESCAPED_UNICODE),
+                "productStock": @json(collect($products ?? [])->pluck('product_quantity', 'SKU')->all(),JSON_UNESCAPED_UNICODE),
                 "search": "",
                 "selectedCustomer": null,
                 "showCustomerList": false,
@@ -28,6 +29,9 @@
                 "selectedButton": "amount",
                 "selectedDiscountPercent": 0,
                 "customers": @json($customers ?? [], JSON_UNESCAPED_UNICODE),
+                "getProductStock": function(sku) {
+                    return this.productStock[sku] || 0;
+                },
                 "updatePriceSelect": function() {
                     if (this.selectedCustomer) {
                         const priceSelect = this.$refs.priceSelect;
@@ -42,7 +46,7 @@
                 "addOrUpdateProduct": function(product) {
                    const existingProduct = this.selectedProducts.find(p => p.SKU === product.SKU);
                    if (existingProduct) {
-                       if (existingProduct.count < product.quantity)
+                       if (existingProduct.count < product.product_quantity)
                            existingProduct.count++;
                    } else {
                        this.selectedProducts.push({...product, count: 1});

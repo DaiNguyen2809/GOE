@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="mr-4 flex flex-col">
                                     <p class="font-gilroy_md text-base text-right" x-text="(product.prices[selectedPrice] || 0).toLocaleString('en-US')"></p>
-                                    <p class="">Tồn kho: <span class="text-blue-600" x-text="product.quantity"></span> | Có thế bán: <span class="text-blue-600" x-text="product.quantity"></span></p>
+                                    <p class="">Tồn kho: <span class="text-blue-600" x-text="product.product_quantity"></span> | Có thế bán: <span class="text-blue-600" x-text="product.product_quantity"></span></p>
                                 </div>
                             </div>
                         </template>

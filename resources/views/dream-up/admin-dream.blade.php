@@ -17,7 +17,7 @@
 <body>
     <div class="flex overflow-auto">
         @include('dream-up.sidebar-dream')
-        <div class="bg-zinc-100 w-[83%] 2xl:w-[85%] h-screen  font-gilroy flex flex-col items-center overflow-auto">
+        <div class="bg-zinc-100 w-[83%] 2xl:w-[85%] h-screen font-gilroy flex flex-col items-center overflow-auto">
             @yield('content')
         </div>
     </div>

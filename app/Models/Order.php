@@ -19,7 +19,7 @@ class Order extends Model
 
     public $keyType = 'string';
 
-    protected $fillable = ['customer_id' ,'staff_id', 'discount_id', 'individual_discount_type', 'individual_discount_value', 'sub_total', 'total_after_discount', 'debt', 'customer_paid', 'shipping_fee', 'support_fee', 'note', 'tag', 'status', 'payment_status'];
+    protected $fillable = ['customer_id' ,'staff_id', 'discount_id', 'individual_discount_type', 'individual_discount_value', 'sub_total', 'total_after_discount', 'debt', 'customer_paid', 'shipping_fee', 'support_fee', 'note', 'tag', 'status', 'payment_status', 'payment_date', 'payment_cat'];
 
     public static function boot() {
         parent::boot();
