@@ -130,6 +130,13 @@
     </div>
 
     <div class="mb-2 h-14 flex rounded-md hover:bg-zinc-400/15 hover:text-white group">
+        <a href="{{ asset('/admin/dreamup/user') }}" class="flex items-center space-x-4 w-full ml-3 cursor-pointer">
+            <i class="fa-solid fa-circle-user text-gray-400 text-base h-4 w-4 group-hover:text-white"></i>
+            <p class="h-4 text-base">Quản lý người dùng</p>
+        </a>
+    </div>
+
+    <div class="mb-2 h-14 flex rounded-md hover:bg-zinc-400/15 hover:text-white group">
         <button class="flex items-center space-x-4 w-full ml-3">
             <i class="fa-solid fa-right-from-bracket text-gray-400 text-base h-4 w-4 group-hover:text-white"></i>
             <p class="h-4 text-base">Đăng xuất</p>

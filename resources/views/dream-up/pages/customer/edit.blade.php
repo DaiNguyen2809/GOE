@@ -7,8 +7,8 @@
             <a href="{{ route('cm-show', $customer->id) }}" class="ml-2 text-base text-gray-500 group-hover:underline">Quay lại chi tiết khách hàng</a>
         </div>
         <div class="h-full flex items-center justify-end w-[68%] 2xl:w-[74%] text-sm">
-            <a href="{{ route('cm-show', $customer->id) }}" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center">Hủy</a>
-            <button type="submit" form="cm-form-update" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center">Lưu</button>
+            <a href="{{ route('cm-show', $customer->id) }}" class="w-[10%] 2xl:w-[6%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center"><i class="fa-solid fa-ban mr-2"></i> Hủy</a>
+            <button type="submit" form="cm-form-update" class="w-[10%] 2xl:w-[6%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Lưu</button>
         </div>
     </div>
     <form action="{{ route('cm-update', $customer->id) }}" id="cm-form-update" method="POST" class="w-[96%] flex flex-wrap gap-6 mb-16">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="w-[49%]">
                             <label for="customer_category" class="block">Nhóm khách hàng<p class="text-red-600 inline-block mr-2">*</p> @error('customer_category')<p class="inline-block text-red-600 text-xs mt-1">{{ $message }}</p>@enderror</label>
-                            <select name="customer_category" class="inline-block mt-2 w-full h-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <select name="customer_category" class="inline-block mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="" selected disabled>Chọn nhóm khách hàng</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('customer_category', $customer->customer_category ?? '') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="w-[49%]">
                             <label for="email" class="block">Email<p class="text-red-600 inline-block mr-2">*</p> @error('email')<p class="inline-block text-red-600 text-xs mt-1">{{ $message }}</p>@enderror</label>
-                            <input class="mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Nhập địa chỉ email" name="email" value="{{ old('email', $customer->email) }}">
+                            <input class="mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Nhập địa chỉ email" name="email" value="{{ old('email', $customer->email) }}">
                         </div>
                     </div>
                     <div class="w-full px-6 h-10 mb-12 flex justify-between">
@@ -60,7 +60,7 @@
                         </div>
                         <div class="w-[49%]">
                             <label for="ward" class="block">Phường/Xã<p class="text-red-600 inline-block mr-2">*</p> @error('ward')<p class="inline-block text-red-600 text-xs mt-1">{{ $message }}</p>@enderror</label>
-                            <select name="ward" class="inline-block mt-2 w-full h-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <select name="ward" class="inline-block mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="" selected disabled>Chọn Phường/Xã</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>

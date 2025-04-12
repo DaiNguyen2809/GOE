@@ -7,14 +7,14 @@
             <a href="{{ route('pd-cat-index') }}" class="ml-2 text-base text-gray-500 group-hover:underline">Quay lại danh sách nhóm sản phẩm</a>
         </div>
         <div class="flex items-center justify-end w-[68%] 2xl:w-[72%]">
-            <button onclick="handleConfirmDelete('{{ $productCategory->id }}', 'pd-cat-modal-delete' , 'pd-cat-form-delete', '{{ route('pd-cat-destroy', '__id__') }}')" type="button" class="w-[10%] 2xl:w-[67.375px] px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center ">Xóa</button>
-            <button type="submit" form="pd-cat-form-update" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center">Lưu</button>
+            <button onclick="handleConfirmDelete('{{ $productCategory->id }}', 'pd-cat-modal-delete' , 'pd-cat-form-delete', '{{ route('pd-cat-destroy', '__id__') }}')" type="button" class="w-[10%] 2xl:w-[7%] h-10 px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center"><i class="fa-solid fa-xmark mr-2"></i> Xóa</button>
+            <button type="submit" form="pd-cat-form-update" class="w-[10%] 2xl:w-[7%] h-10 px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Lưu</button>
         </div>
     </div>
 
     <div class="w-[96%] flex justify-between">
         <div class="bg-white w-[49%] h-full font-gilroy mt-6 rounded-md shadow-lg">
-            <h1 class="text-lg font-[gilroy-md] mt-4 ml-6">Thông tin chung</h1>
+            <h1 class="text-lg font-gilroy_md mt-4 ml-6">Thông tin chung</h1>
             <div class="bg-gray-300 w-full h-px mt-2"></div>
             <div class="w-full mt-4">
                 <form action="{{ route('pd-cat-update', $productCategory->id) }}" id="pd-cat-form-update" method="POST">

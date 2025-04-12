@@ -7,8 +7,8 @@
             <a href="{{ route('od-show', $formattedOrder['id']) }}" class="ml-2 text-base text-gray-500 group-hover:underline">Quay lại chi tiết hóa đơn {{ $formattedOrder['id'] }}</a>
         </div>
         <div class="h-full flex items-center justify-end w-[68%] 2xl:w-[74%]">
-            <a href="{{ route('od-index') }}" class="w-[12%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-ban mr-2"></i>Hủy</a>
-            <button type="submit" form="od-form-update" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-check mr-2"></i>Cập nhật đơn hàng</button>
+            <a href="{{ route('od-index') }}" class="w-[12%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center text-sm"><i class="fa-solid fa-ban mr-2"></i> Hủy</a>
+            <button type="submit" form="od-form-update" class="w-[24%] 2xl:w-[16%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-check mr-2"></i> Cập nhật đơn hàng</button>
         </div>
     </div>
 

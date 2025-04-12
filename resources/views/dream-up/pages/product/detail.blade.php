@@ -7,9 +7,8 @@
             <a href="{{ route('pd-index') }}" class="ml-2 text-base text-gray-500 group-hover:underline">Quay lại danh sách sản phẩm</a>
         </div>
         <div class="h-full flex items-center justify-end w-[68%] 2xl:w-[74%]">
-            <a href="{{ route('pd-index') }}" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center">Thoát</a>
-            <button onclick="handleConfirmDelete('{{ $product->SKU }}', 'pd-modal-delete', 'pd-form-delete', '{{ route('pd-destroy', '__id__') }}')" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center">Xóa</button>
-            <a href="{{ route('pd-edit', $product->SKU) }}" class="w-[24%] 2xl:w-[12%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center">Cập nhật sản phẩm</a>
+            <button onclick="handleConfirmDelete('{{ $product->SKU }}', 'pd-modal-delete', 'pd-form-delete', '{{ route('pd-destroy', '__id__') }}')" class="text-sm w-[11%] 2xl:w-[7%] h-10 px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center"><i class="fa-solid fa-xmark mr-2"></i> Xóa</button>
+            <a href="{{ route('pd-edit', $product->SKU) }}" class="text-sm w-[24%] 2xl:w-[12%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md h-10 cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Cập nhật sản phẩm</a>
         </div>
     </div>
     {{--Thông tin cơ bản--}}

@@ -22,7 +22,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'email', 'password', 'role'];
+    protected $fillable = ['name', 'email', 'password', 'role', 'phone'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,5 +45,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (empty($user->id)) {
+                $lastestUser = User::where('id', 'like', 'USZN%')->latest('id')->first();
+
+                if ($lastestUser) {
+                    $lastestUser = (int) substr($lastestUser->id, 4);
+                    $newNumber = str_pad($lastestUser + 1, 4, "0", STR_PAD_LEFT);
+                } else
+                    $newNumber = '0000';
+
+                $user->id = 'USZN' . $newNumber;
+            }
+        });
     }
 }

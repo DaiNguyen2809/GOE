@@ -13,6 +13,7 @@ use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\VietQRController;
 use App\Http\Controllers\PackagingOrderController;
+use App\Http\Controllers\UserController;
 
 Route::prefix('/admin/dreamup')->group(function(){
     Route::view('/','dream-up/admin-dream')->name('root');
@@ -93,4 +94,12 @@ Route::prefix('/admin/dreamup')->group(function(){
 
     Route::post('/generateQR', [VietQRController::class, 'generateQR'])->name('vq-generateQR');
 
+    Route::prefix('/user')->group(function(){
+       Route::get('/',[UserController::class,'index'])->name('ur-index');
+       Route::get('/create',[UserController::class,'create'])->name('ur-create');
+       Route::post('/store',[UserController::class,'store'])->name('ur-store');
+       Route::get('/{user}/edit',[UserController::class,'edit'])->name('ur-edit');
+       Route::put('{user}/update',[UserController::class,'update'])->name('ur-update');
+       Route::get('/search',[UserController::class,'search'])->name('ur-search');
+    });
 });

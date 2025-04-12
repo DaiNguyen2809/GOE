@@ -7,8 +7,8 @@
             <a href="{{ route('pd-cat-index') }}" class="ml-2 text-base text-gray-500 group-hover:underline">Quay lại danh sách nhóm sản phẩm</a>
         </div>
         <div class="flex items-center justify-end w-[68%] 2xl:w-[72%]">
-            <a href="{{ route('pd-cat-index') }}" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-[gilroy] rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center">Hủy</a>
-            <button type="submit" form="pd-cat-form-create" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-[gilroy] rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center">Lưu</button>
+            <a href="{{ route('pd-cat-index') }}" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-[gilroy] rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center"><i class="fa-solid fa-ban mr-2"></i> Hủy</a>
+            <button type="submit" form="pd-cat-form-create" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-[gilroy] rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Lưu</button>
         </div>
     </div>
 
@@ -21,11 +21,11 @@
                     @csrf
                     <div class="w-full px-6">
                         <label for="name">Tên nhóm <p class="text-red-600 inline-block mr-2">*</p> @error('name')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class=" mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Nhập tên nhóm sản phẩm" name="name" value="{{ old('name') }}">
+                        <input class="h-10 mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Nhập tên nhóm sản phẩm" name="name" value="{{ old('name') }}">
                     </div>
                     <div class="w-full px-6 mt-4">
                         <label for="id">Mã nhóm <p class="text-red-600 inline-block mr-2">*</p> @error('id')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Nhập mã nhóm sản phẩm" name="id" value="{{ old('id') }}">
+                        <input class="h-10 mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Nhập mã nhóm sản phẩm" name="id" value="{{ old('id') }}">
                     </div>
                     <div class="w-full px-6 mt-4">
                         <label class="mr-2" for="description">Mô tả @error('description')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
