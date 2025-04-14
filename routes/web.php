@@ -102,4 +102,4 @@ Route::prefix('/admin/dreamup')->group(function(){
        Route::put('{user}/update',[UserController::class,'update'])->name('ur-update');
        Route::get('/search',[UserController::class,'search'])->name('ur-search');
     });
-});
+})->middleware(['auth', 'admin']);

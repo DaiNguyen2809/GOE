@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::table('orders', function (Blueprint $table) {
-//            $table->string('id',100)->change()->primary();
-//        });
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
+            $table->string('tokenable_id')->change();
+        });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-//        Schema::table('orders', function (Blueprint $table) {
-//            $table->bigInteger('id')->change(); // Nếu rollback thì chuyển lại bigint
-//        });
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
+            $table->unsignedBigInteger('tokenable_id')->change();
+        });
     }
 };
