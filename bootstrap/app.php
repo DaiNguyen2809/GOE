@@ -12,14 +12,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-//        $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
+        $middleware->web(append: [
+            \App\Http\Middleware\CorsMiddleware::class
+        ]);
 
         $middleware->api(prepend: [
             \App\Http\Middleware\CorsMiddleware::class,
-//            EnsureFrontendRequestsAreStateful::class,
         ]);
 
         $middleware->alias([
+            \Illuminate\Session\Middleware\StartSession::class,
             'admin' => \App\Http\Middleware\CheckRole::class,
         ]);
     })
