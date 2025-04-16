@@ -15,6 +15,6 @@ class PackagingOrder extends Model
 
     public $timestamps = true;
 
-    public $fillable = ['order_id', 'order_date', 'confirm_date', 'cancel_date', 'request_staff', 'packaging_staff', 'cacnel_staff'];
+    public $fillable = ['order_id', 'order_date', 'confirm_date', 'cancel_date', 'request_staff', 'packaging_staff', 'cacnel_staff', 'status'];
 
 }

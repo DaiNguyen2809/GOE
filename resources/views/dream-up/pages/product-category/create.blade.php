@@ -1,18 +1,18 @@
 @extends('dream-up.admin-dream')
 @section('title','Thêm nhóm sản phẩm')
 @section('content')
-    <div class="bg-white h-16 w-full flex">
+    <div class="bg-white h-16 w-full flex text-sm">
         <div class="h-full w-[30%] 2xl:w-[25%] flex items-center cursor-pointer group">
             <i class="fa-solid fa-chevron-left ml-8 text-base text-gray-500"></i>
             <a href="{{ route('pd-cat-index') }}" class="ml-2 text-base text-gray-500 group-hover:underline">Quay lại danh sách nhóm sản phẩm</a>
         </div>
         <div class="flex items-center justify-end w-[68%] 2xl:w-[72%]">
-            <a href="{{ route('pd-cat-index') }}" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-[gilroy] rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center"><i class="fa-solid fa-ban mr-2"></i> Hủy</a>
-            <button type="submit" form="pd-cat-form-create" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-[gilroy] rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Lưu</button>
+            <a href="{{ route('pd-cat-index') }}" class="w-[12%] 2xl:w-[7%] h-10 px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-[gilroy] rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center"><i class="fa-solid fa-ban mr-2"></i> Hủy</a>
+            <button type="submit" form="pd-cat-form-create" class="w-[12%] 2xl:w-[7%] h-10 px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-[gilroy] rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Lưu</button>
         </div>
     </div>
 
-    <div class="w-[96%] flex justify-between">
+    <div class="w-[96%] flex justify-between text-sm">
         <div class="bg-white w-[49%] h-full font-gilroy mt-6 rounded-md shadow-lg">
             <h1 class="text-lg font-gilroy_md mt-4 ml-6">Thông tin chung</h1>
             <div class="bg-gray-300 w-full h-px mt-2"></div>

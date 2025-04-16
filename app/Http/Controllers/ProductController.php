@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grind;
+use App\Models\Price;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\RoastLevel;
@@ -12,6 +13,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
+    private function updatePrice($SKU, $type_id, $value)
+    {
+        Price::where('SKU', $SKU)->where('type_id', $type_id)->update([
+            'price' => $value,
+            'updated_at' => now(),
+        ]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -142,6 +150,7 @@ class ProductController extends Controller
             ->leftJoin('price_types as pt', 'pt.type_id', '=', 'pr.type_id')
             ->select('pr.price as price', 'pt.name as price_type_name')
             ->where('pr.SKU', $product->SKU)->get();
+
         $categories = ProductCategory::all();
         $roastLevels = RoastLevel::all();
         $grinds = Grind::all();
@@ -168,7 +177,11 @@ class ProductController extends Controller
         $grinds = Grind::all();
         $unitWeights = UnitWeight::all();
         $unitPackages = UnitPackage::all();
-        return view('dream-up.pages.product.edit', compact(['product', 'categories', 'roastLevels', 'grinds', 'unitWeights', 'unitPackages']));
+
+        $prices = DB::table('prices as pr')
+            ->select('pr.price', 'pr.type_id')->where('pr.SKU', $product->SKU)->get();
+
+        return view('dream-up.pages.product.edit', compact(['product', 'categories', 'roastLevels', 'grinds', 'unitWeights', 'unitPackages', 'prices']));
     }
 
     /**
@@ -251,6 +264,46 @@ class ProductController extends Controller
             'roast_level' => $request->roast_level,
             'updated_at' => now()
         ]);
+
+        $retailString = $request->retail;
+        $retail = (int) str_replace(',', '', $retailString);
+        $this->updatePrice($request->SKU, 'retail', $retail);
+
+        $wholesaleString = $request->wholesale;
+        $wholesale = (int) str_replace(',', '', $wholesaleString);
+        $this->updatePrice($request->SKU, 'wholesale', $wholesale);
+
+        $contributorString = $request->contributor;
+        $contributor = (int) str_replace(',', '', $contributorString);
+        $this->updatePrice($request->SKU, 'contributor', $contributor);
+
+        $distributorString = $request->distributor;
+        $distributor = (int) str_replace(',', '', $distributorString);
+        $this->updatePrice($request->SKU, 'distributor', $distributor);
+
+        $oneHundredKgString = $request->oneHundredKg;
+        $oneHundredKg = (int) str_replace(',', '', $oneHundredKgString);
+        $this->updatePrice($request->SKU, '100kg', $oneHundredKg);
+
+        $fiftyKgString = $request->fiftyKg;
+        $fiftyKg = (int) str_replace(',', '', $fiftyKgString);
+        $this->updatePrice($request->SKU, '50kg', $fiftyKg);
+
+        $tenKgString = $request->tenKg;
+        $tenKg = (int) str_replace(',', '', $tenKgString);
+        $this->updatePrice($request->SKU, '10kg', $tenKg);
+
+        $fiveKgString = $request->fiveKg;
+        $fiveKg = (int) str_replace(',', '', $fiveKgString);
+        $this->updatePrice($request->SKU, '5kg', $fiveKg);
+
+        $agencyString = $request->agency;
+        $agency = (int) str_replace(',', '', $agencyString);
+        $this->updatePrice($request->SKU, 'agency', $agency);
+
+        $importString = $request->import;
+        $import = (int) str_replace(',', '', $importString);
+        $this->updatePrice($request->SKU, 'import', $import);
 
         return redirect()->route('pd-edit', $product->SKU)->with('success', 'Cập nhật sản phẩm thành công');
     }

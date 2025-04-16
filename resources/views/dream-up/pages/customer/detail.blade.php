@@ -7,13 +7,13 @@
             <a href="{{ route('cm-index') }}" class="ml-2 text-base text-gray-500 group-hover:underline">Quay lại danh sách khách hàng</a>
         </div>
         <div class="h-full flex items-center justify-end w-[68%] 2xl:w-[74%] text-sm">
-            <button onclick="handleConfirmDelete('{{ $customer->id }}', 'cm-modal-delete', 'cm-form-delete', '{{ route('cm-destroy', '__id__') }}')" class="w-[18%] 2xl:w-[11%] h-10 px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center"><i class="fa-solid fa-xmark mr-2"></i> Xóa khách hàng</button>
-            <a href="{{ route('cm-edit', $customer->id) }}" class="w-[25%] 2xl:w-[14%] h-10 px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-pen-to-square mr-2"></i> Cập nhật khách hàng</a>
-            <button type="submit" class="w-[25%] 2xl:w-[11%] h-10 px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center"><i class="ml-2 fa-regular fa-square-caret-down"></i> Tạo phiếu thu/chi</button>
+            <button onclick="handleConfirmDelete('{{ $customer->id }}', 'cm-modal-delete', 'cm-form-delete', '{{ route('cm-destroy', '__id__') }}')" class="w-[22%] 2xl:w-[11%] h-10 px-4 py-2 ml-4 bg-white border border-red-600 text-red-600 font-gilroy rounded-md cursor-pointer hover:bg-red-600 hover:text-white text-center"><i class="fa-solid fa-xmark mr-2"></i> Xóa khách hàng</button>
+            <a href="{{ route('cm-edit', $customer->id) }}" class="w-[26%] 2xl:w-[14%] h-10 px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-pen-to-square mr-2"></i> Cập nhật khách hàng</a>
+            <button type="submit" class="w-[22%] 2xl:w-[11%] h-10 px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center"><i class="ml-2 fa-regular fa-square-caret-down"></i> Tạo phiếu thu/chi</button>
         </div>
     </div>
     <div class="w-[96%] flex flex-wrap mt-6 text-2xl">{{ $customer->name ?: '---'}}</div>
-    <div class="w-[96%] flex justify-between mb-16">
+    <div class="w-[96%] flex justify-between">
         <div class="w-[65%]">
             <div class="bg-white w-full h-fit font-gilroy rounded-md shadow-lg">
                 <h1 class="text-lg font-[gilroy-md] mt-4 ml-6 pt-4">Thông tin cá nhân</h1>
@@ -114,5 +114,6 @@
             </div>
         </div>
     </div>
+    @include('dream-up.pages.customer.detail-table')
     @include('dream-up.pages.customer.modal')
 @endsection

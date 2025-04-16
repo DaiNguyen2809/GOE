@@ -128,7 +128,14 @@ class CustomerController extends Controller
         $customer = DB::table('customers as c')
             ->join('customer_categories as ct', 'ct.id', '=', 'c.customer_category')
             ->select('c.*', 'ct.name as category_name', 'ct.price_type_id as price', 'ct.discount_percent as discount', 'ct.payment_cat as payment')->where('c.id', $customer->id)->first();
-        return view('dream-up.pages.customer.detail', compact('customer'));
+
+        $orders = DB::table('orders as o')
+            ->leftJoin('customers as c', 'c.id', '=', 'o.customer_id')
+            ->leftJoin('users as u', 'u.id', '=', 'o.staff_id')
+            ->select('o.id as order_id', 'o.status as order_status', 'o.payment_status', 'o.total_after_discount',
+                'u.id as staff_id', 'u.name as staff_name')->where('o.customer_id', '=', $customer->id)->get();
+
+        return view('dream-up.pages.customer.detail', compact(['customer','orders']));
     }
 
     /**
@@ -139,7 +146,9 @@ class CustomerController extends Controller
         $categories = CustomerCategory::all();
         $customer = DB::table('customers as c')
             ->join('customer_categories as ct', 'ct.id', '=', 'c.customer_category')
-            ->select('c.*', 'ct.name as category_name', 'ct.price_type_id as price', 'ct.discount_percent as discount', 'ct.payment_cat as payment')->where('c.id', $customer->id)->first();
+            ->select('c.*', 'ct.name as category_name', 'ct.price_type_id as price',
+                'ct.discount_percent as discount', 'ct.payment_cat as payment')->where('c.id', $customer->id)->first();
+
         return view('dream-up.pages.customer.edit', compact('customer', 'categories'));
     }
 

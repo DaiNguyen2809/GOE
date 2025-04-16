@@ -116,7 +116,7 @@
                         </div>
                         <div class="ml-20 leading-8">
                             @foreach($prices->slice(0,5) as $price)
-                                <p>{{ number_format($price->price, 0, ',', '.') }}</p>
+                                <p>{{ number_format($price->price, 0, '.', ',') }}</p>
                             @endforeach
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="ml-20 leading-8">
                             @foreach($prices->slice(5,5) as $price)
-                                <p>{{ number_format($price->price, 0, ',', '.') }}</p>
+                                <p>{{ number_format($price->price, 0, '.', ',') }}</p>
                             @endforeach
                         </div>
                     </div>

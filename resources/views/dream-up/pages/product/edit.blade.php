@@ -106,43 +106,43 @@
                 <div class="w-full mt-4 flex h-fit">
                     <div class="w-1/3 px-6">
                         <label for="retail">Giá bán lẻ <p class="text-red-600 inline-block mr-2">*</p> @error('retail')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="retail" value="{{ old('retail', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="retail" value="{{ old('retail', number_format($prices->firstWhere('type_id', 'retail')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                     <div class="w-1/3 px-6">
                         <label for="wholesale">Giá bán sỉ<p class="text-red-600 inline-block mr-2">*</p> @error('wholesale')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="wholesale" value="{{ old('wholesale', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="wholesale" value="{{ old('wholesale', number_format($prices->firstWhere('type_id', 'wholesale')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                     <div class="w-1/3 px-6">
                         <label for="contributor">Cộng tác viên <p class="text-red-600 inline-block mr-2">*</p> @error('contributor')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="contributor" value="{{ old('contributor', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="contributor" value="{{ old('contributor', number_format($prices->firstWhere('type_id', 'contributor')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                 </div>
                 <div class="w-full mt-4 flex">
                     <div class="w-1/3 px-6">
                         <label for="distributor">Nhà phân phối <p class="text-red-600 inline-block mr-2">*</p> @error('distributor')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="distributor" value="{{ old('distributor', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="distributor" value="{{ old('distributor', number_format($prices->firstWhere('type_id', 'distributor')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                     <div class="w-1/3 px-6">
-                        <label for="100kg">Quán 100kg <p class="text-red-600 inline-block mr-2">*</p> @error('100kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="100kg" value="{{ old('100kg', 0) }}">
+                        <label for="oneHundredKg">Quán 100kg <p class="text-red-600 inline-block mr-2">*</p> @error('100kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="oneHundredKg" value="{{ old('oneHundredKg', number_format($prices->firstWhere('type_id', '100kg')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                     <div class="w-1/3 px-6">
-                        <label for="50kg">Quán Sỉ 50kg<p class="text-red-600 inline-block mr-2">*</p> @error('50kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="50kg" value="{{ old('50kg', 0) }}">
+                        <label for="fiftyKg">Quán Sỉ 50kg<p class="text-red-600 inline-block mr-2">*</p> @error('50kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="fiftyKg" value="{{ old('fiftyKg', number_format($prices->firstWhere('type_id', '50kg')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                 </div>
                 <div class="w-full mt-4 flex mb-6">
                     <div class="w-1/3 px-6">
-                        <label for="10kg">Quán sỉ 10kg<p class="text-red-600 inline-block mr-2">*</p> @error('10kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="10kg" value="{{ old('10kg', 0) }}">
+                        <label for="tenKg">Quán sỉ 10kg<p class="text-red-600 inline-block mr-2">*</p> @error('10kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="tenKg" value="{{ old('tenKg', number_format($prices->firstWhere('type_id', '10kg')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                     <div class="w-1/3 px-6">
-                        <label for="5kg">Quán Sỉ 5kg<p class="text-red-600 inline-block mr-2">*</p> @error('5kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="5kg" value="{{ old('5kg', 0) }}">
+                        <label for="fiveKg">Quán Sỉ 5kg<p class="text-red-600 inline-block mr-2">*</p> @error('5kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="fiveKg" value="{{ old('fiveKg', number_format($prices->firstWhere('type_id', '5kg')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                     <div class="w-1/3 px-6">
                         <label for="agency">Đại lý<p class="text-red-600 inline-block mr-2">*</p> @error('agency')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="agency" value="{{ old('agency', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="agency" value="{{ old('agency', number_format($prices->firstWhere('type_id', 'agency')->price ?? 0, 0, '.', ',')) }}">
                     </div>
                 </div>
             </div>
@@ -206,14 +206,9 @@
                     <input class="h-10 block text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="stock" value="{{ old('stock', 0) }}">
                 </div>
                 <div class="w-full mt-4 flex flex-wrap px-6">
-                    <label for="name">Giá vốn <p class="text-red-600 inline-block mr-2">*</p> @error('name')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                    <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="cost" value="{{ old('cost', 0) }}">
+                    <label for="import">Giá nhập</label>
+                    <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="import" value="{{ old('import', number_format($prices->firstWhere('type_id', 'import')->price ?? 0, 0, '.', ',')) }}">
                 </div>
-{{--                <div class="flex items-center justify-end w-full px-6 mt-10">--}}
-{{--                    <a href="{{ route('pd-show', $product->SKU) }}" class="w-[12%] 2xl:w-[10%] h-10 px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center">Hủy</a>--}}
-{{--                    <a href="{{ route('pd-index') }}" class="w-[30%] 2xl:w-[20%] h-10 px-2 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center">Lưu và in mã vạch</a>--}}
-{{--                    <button type="submit" form="pd-form-update" class="w-[12%] 2xl:w-[10%] h-10 px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center">Lưu</button>--}}
-{{--                </div>--}}
             </div>
         </div>
     </form>

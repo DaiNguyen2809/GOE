@@ -29,6 +29,7 @@
     @include("dream-up.pages.order.cancel-modal")
     @include("dream-up.pages.order.approval-modal")
     @include("dream-up.pages.order.pdf-order")
+    @include("dream-up.pages.order.packaging")
     @if(session('success'))
         <script>
             document.addEventListener("DOMContentLoaded", function () {

@@ -28,8 +28,8 @@ class OrderHelper {
 
     public static function getIconPayment($status) {
         return match ($status) {
-            'paid' => 'w-3 h-3 rounded-full bg-black',
-            'unpaid' => 'w-3 h-3 rounded-full border-2 border-black',
+            'paid' => '<i class="fa-solid fa-square-check text-green-600 text-base"></i>',
+            'unpaid' => '<i class="fa-solid fa-square-xmark text-red-600 text-base"></i>',
         };
     }
 
@@ -65,7 +65,7 @@ class OrderHelper {
     {
         return match ($status) {
             'pending' => '<button onclick="handleConfirmDelete(\'' . $id . '\', \'od-modal-approval\', \'od-form-approval\', \'' . route('od-approval', '__id__') . '\')" type="button" class="w-[20%] 2xl:w-[15%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-check mr-2"></i>Duyệt đơn hàng</button>',
-            'payment' => '<a href="'.route('pk-index').'"  class="w-[22%] 2xl:w-[15%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-box mr-2"></i>Yêu cầu đóng gói</a>',
+            'payment' => '<button onclick="handleShowContent(\'packaging-modal\')" class="w-[22%] 2xl:w-[15%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center text-sm"><i class="fa-solid fa-box mr-2"></i>Yêu cầu đóng gói</button>',
             'packaging' => '',
             'packed' => '',
             'canceled' => '',

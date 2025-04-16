@@ -173,7 +173,7 @@ class AuthController extends Controller
 
             // Lưu token vào cookie
             $response = redirect('/admin/dreamup');
-            $response->cookie('admin_token', $token, 60); // 60 phút
+            $response->cookie('admin_token', $token, 1440); // 1day
 
             return $response;
 

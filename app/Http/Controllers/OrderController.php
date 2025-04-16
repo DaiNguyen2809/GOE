@@ -235,8 +235,10 @@ class OrderController extends Controller
 
         $formattedOrder = $this->formatOrder($orderData, $orderDetails);
         $payments = Payment::all();
+        $staffs = DB::table('users as us')
+            ->select('us.id', 'us.name')->where('role',1)->get();
 
-        return view('dream-up.pages.order.detail', compact('formattedOrder','payments'));
+        return view('dream-up.pages.order.detail', compact(['formattedOrder','payments','staffs']));
     }
 
     /**
@@ -440,5 +442,11 @@ class OrderController extends Controller
             ]);
             return redirect()->route('od-show', $order->id)->with('success', 'Khách hàng còn nợ lại: ' . $cal);
         }
+    }
+
+    public function search(Request $request) {
+        $query = $request->input('query');
+        $orders = Order::where('id', 'LIKE', "%{$query}%")->orWhere('customer_id', 'LIKE', "%{$query}%")->orWhere('note', 'LIKE', "%{$query}%")->get();
+        return view('dream-up.pages.order.table', compact('orders'));
     }
 }
