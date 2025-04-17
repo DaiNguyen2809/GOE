@@ -1,5 +1,5 @@
 <div id="qr-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden text-sm">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-[50%] relative h-[84%] !z-99 flex flex-col">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-[70%] 2xl:w-[50%] relative h-fit pb-8 !z-99 flex flex-col overflow-auto">
         <button onclick="handleCloseContent('qr-modal')" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl"><i class="fa-solid fa-xmark"></i></button>
         <h2 class="text-xl font-gilroy_md text-center">Mã VietQR thanh toán</h2>
         <div class="bg-gray-300 w-full h-px mt-2"></div>

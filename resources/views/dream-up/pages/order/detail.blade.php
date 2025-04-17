@@ -21,11 +21,6 @@
         @include("dream-up.pages.order.detail-info-product")
     </div>
 
-    <div class="h-fit flex items-center justify-end w-full mb-10 pr-6">
-        {!! OrderHelper::getStatusCancelButton($formattedOrder['status'], $formattedOrder['id']) !!}
-        {!! OrderHelper::getStatusUpdateButton($formattedOrder['status'], $formattedOrder['id']) !!}
-        {!! OrderHelper::getStatusApprovalButton($formattedOrder['status'], $formattedOrder['id']) !!}
-    </div>
     @include("dream-up.pages.order.cancel-modal")
     @include("dream-up.pages.order.approval-modal")
     @include("dream-up.pages.order.pdf-order")

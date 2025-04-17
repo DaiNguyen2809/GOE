@@ -34,7 +34,7 @@ class AuthController extends Controller
                     'sub' => $user->id,
                     'role' => $user->role,
                     'iat' => time(),
-                    'exp' => time() + (60 * 60) // Hết hạn sau 1 giờ
+                    'exp' => time() + (24 * 60 * 60) // Hết hạn sau 1 giờ
                 ];
                 $adminToken = JWT::encode($payload, env('JWT_SECRET', 'your-secret-key'), 'HS256');
             }
@@ -146,7 +146,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         // Redirect đến trang admin
-        return redirect('/admin/dreamup');
+        return redirect('/admin/dreamup/home');
     }
 
     public function verifyAdminToken(Request $request)
@@ -172,7 +172,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // Lưu token vào cookie
-            $response = redirect('/admin/dreamup');
+            $response = redirect('/admin/dreamup/home');
             $response->cookie('admin_token', $token, 1440); // 1day
 
             return $response;

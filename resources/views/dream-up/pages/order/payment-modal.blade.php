@@ -35,7 +35,7 @@
 
         <div class="flex mt-8 justify-end">
             <button type="button" onclick="handleCloseContent('payment-modal')" class="w-[20%] 2xl:w-[30%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer text-center text-sm">Thoát</button>
-            <button type="submit" class="w-[20%] 2xl:w-[30%] px-4 py-2 ml-4 bg-blue-600 border border-blue-600 text-white font-gilroy rounded-md cursor-pointer text-center text-sm">Thanh toán đơn hàng</button>
+            <button type="submit" class="w-[40%] 2xl:w-[30%] px-4 py-2 ml-4 bg-blue-600 border border-blue-600 text-white font-gilroy rounded-md cursor-pointer text-center text-sm">Thanh toán đơn hàng</button>
         </div>
     </form>
 </div>

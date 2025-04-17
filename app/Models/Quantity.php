@@ -15,5 +15,5 @@ class Quantity extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['SKU', 'quantity'];
+    protected $fillable = ['SKU', 'quantity', 'can_sale'];
 }

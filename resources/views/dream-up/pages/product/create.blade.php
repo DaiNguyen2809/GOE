@@ -46,8 +46,11 @@
                         <div class="w-[49%]">
                             <label for="unit_package" class="block">Đơn vị tính<p class="text-red-600 inline-block mr-2">*</p> @error('unit_package')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
                             <select name="unit_package" class="inline-block mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="" selected disabled>Chon thong tin</option>
                                 @foreach($unitPackages as $unitPackage)
-                                    <option value="{{ $unitPackage->id }} {{ old('unit_package') == $unitPackage->id ? 'selected' : '' }}">{{ $unitPackage->name }}</option>
+                                    <option value="{{ $unitPackage->id }}" {{ old('unit_package') == $unitPackage->id ? 'selected' : '' }}>
+                                        {{ $unitPackage->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -98,50 +101,50 @@
                 </div>
             </div>
         </div>
-        <div class="w-full flex h-[27%] text-sm">
+        <div class="w-full flex h-[27%]">
             <div class="bg-white w-full h-fit font-gilroy rounded-md shadow-lg">
                 <h1 class="text-lg font-gilroy_md mt-4 ml-6">Giá sản phẩm</h1>
                 <div class="bg-gray-300 w-full h-px mt-2"></div>
                 <div class="w-full mt-4 flex h-fit">
                     <div class="w-1/3 px-6">
                         <label for="retail">Giá bán lẻ <p class="text-red-600 inline-block mr-2">*</p> @error('retail')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="retail" value="{{ old('retail', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="retail" value="{{ old('retail', 0) }}">
                     </div>
                     <div class="w-1/3 px-6">
                         <label for="wholesale">Giá bán sỉ<p class="text-red-600 inline-block mr-2">*</p> @error('wholesale')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="wholesale" value="{{ old('wholesale', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="wholesale" value="{{ old('wholesale', 0) }}">
                     </div>
                     <div class="w-1/3 px-6">
                         <label for="contributor">Cộng tác viên <p class="text-red-600 inline-block mr-2">*</p> @error('contributor')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="contributor" value="{{ old('contributor', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="contributor" value="{{ old('contributor', 0) }}">
                     </div>
                 </div>
                 <div class="w-full mt-4 flex">
                     <div class="w-1/3 px-6">
                         <label for="distributor">Nhà phân phối <p class="text-red-600 inline-block mr-2">*</p> @error('distributor')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="distributor" value="{{ old('distributor', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="distributor" value="{{ old('distributor', 0) }}">
                     </div>
                     <div class="w-1/3 px-6">
-                        <label for="100kg">Quán 100kg <p class="text-red-600 inline-block mr-2">*</p> @error('100kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="100kg" value="{{ old('100kg', 0) }}">
+                        <label for="oneHundredKg">Quán 100kg <p class="text-red-600 inline-block mr-2">*</p> @error('100kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="oneHundredKg" value="{{ old('oneHundredKg', 0) }}">
                     </div>
                     <div class="w-1/3 px-6">
-                        <label for="50kg">Quán Sỉ 50kg<p class="text-red-600 inline-block mr-2">*</p> @error('50kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="50kg" value="{{ old('50kg', 0) }}">
+                        <label for="fiftyKg">Quán Sỉ 50kg<p class="text-red-600 inline-block mr-2">*</p> @error('50kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="fiftyKg" value="{{ old('fiftyKg', 0) }}">
                     </div>
                 </div>
                 <div class="w-full mt-4 flex mb-6">
                     <div class="w-1/3 px-6">
-                        <label for="10kg">Quán sỉ 10kg<p class="text-red-600 inline-block mr-2">*</p> @error('10kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="10kg" value="{{ old('10kg', 0) }}">
+                        <label for="tenKg">Quán sỉ 10kg<p class="text-red-600 inline-block mr-2">*</p> @error('10kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="tenKg" value="{{ old('tenKg', 0) }}">
                     </div>
                     <div class="w-1/3 px-6">
-                        <label for="5kg">Quán Sỉ 5kg<p class="text-red-600 inline-block mr-2">*</p> @error('5kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="5kg" value="{{ old('5kg', 0) }}">
+                        <label for="fiveKg">Quán Sỉ 5kg<p class="text-red-600 inline-block mr-2">*</p> @error('5kg')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="fiveKg" value="{{ old('fiveKg', 0) }}">
                     </div>
                     <div class="w-1/3 px-6">
                         <label for="agency">Đại lý<p class="text-red-600 inline-block mr-2">*</p> @error('agency')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                        <input class="text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="agency" value="{{ old('agency', 0) }}">
+                        <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="agency" value="{{ old('agency', 0) }}">
                     </div>
                 </div>
             </div>
@@ -193,17 +196,12 @@
                 <h1 class="text-lg font-gilroy_md mt-4 ml-6">Khởi tạo kho hàng</h1>
                 <div class="bg-gray-300 w-full h-px mt-2"></div>
                 <div class="w-full mt-4 flex flex-wrap px-6">
-                    <label for="name">Tồn kho ban đầu <p class="text-red-600 inline-block mr-2">*</p> @error('name')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                    <input class="block text-right mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Nhập tên sản phẩm" name="stock" value="{{ old('stock', 0) }}">
+                    <label for="stock">Tồn kho ban đầu <p class="text-red-600 inline-block mr-2">*</p> @error('name')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
+                    <input class="h-10 block text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="stock" value="{{ old('stock', 0) }}">
                 </div>
                 <div class="w-full mt-4 flex flex-wrap px-6">
-                    <label for="name">Giá vốn <p class="text-red-600 inline-block mr-2">*</p> @error('name')<p class="inline-block text-red-600 text-sm mt-1">{{ $message }}</p>@enderror</label>
-                    <input class="text-right mt-2 w-full h-10 pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Nhập tên sản phẩm" name="cost" value="{{ old('cost', 0) }}">
-                </div>
-                <div class="flex items-center justify-end w-full px-6 pb-6 mt-16">
-                    <a href="{{ route('pd-index') }}" class="w-[18%] 2xl:w-[10%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center"><i class="fa-solid fa-ban mr-2"></i> Hủy</a>
-                    <a href="{{ route('pd-index') }}" class="w-[28%] 2xl:w-[18%] px-2 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center">Lưu và in mã vạch</a>
-                    <button type="submit" form="pd-form-create" class="w-[18%] 2xl:w-[10%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Lưu</button>
+                    <label for="import">Giá nhập</label>
+                    <input class="h-10 text-right mt-2 w-full pl-3 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" name="import" value="{{ old('import', 0) }}">
                 </div>
             </div>
         </div>

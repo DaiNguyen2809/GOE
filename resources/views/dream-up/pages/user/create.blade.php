@@ -8,7 +8,7 @@
         </div>
         <div class="h-full flex items-center justify-end w-[68%] 2xl:w-[74%] text-sm">
             <a href="{{ route('ur-index') }}" class="w-[12%] 2xl:w-[8%] px-4 py-2 ml-4 bg-white border border-blue-600 text-blue-600 font-gilroy rounded-md cursor-pointer hover:bg-blue-600 hover:text-white text-center"><i class="fa-solid fa-ban mr-2"></i> Hủy</a>
-            <button type="submit" form="ur-form-create" class="w-[10%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Lưu</button>
+            <button type="submit" form="ur-form-create" class="w-[12%] 2xl:w-[7%] px-4 py-2 ml-4 bg-white border border-green-600 text-green-600 font-gilroy rounded-md cursor-pointer hover:bg-green-600 hover:text-white text-center"><i class="fa-solid fa-check mr-2"></i> Lưu</button>
         </div>
     </div>
     <form action="{{ route('ur-store') }}" id="ur-form-create" method="POST" class="w-[96%] flex flex-wrap gap-6 mb-16">

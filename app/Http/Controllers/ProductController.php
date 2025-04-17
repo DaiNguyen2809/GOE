@@ -6,6 +6,7 @@ use App\Models\Grind;
 use App\Models\Price;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Quantity;
 use App\Models\RoastLevel;
 use App\Models\UnitPackage;
 use App\Models\UnitWeight;
@@ -20,6 +21,15 @@ class ProductController extends Controller
             'updated_at' => now(),
         ]);
     }
+
+    private function createPrice($SKU, $type_id, $value)
+    {
+        Price::create([
+            'SKU' => $SKU,
+            'type_id' => $type_id,
+            'price' => $value,
+        ]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -29,8 +39,11 @@ class ProductController extends Controller
             -> leftJoin('grinds as g', 'g.id', '=', 'p.grind')
             -> leftJoin('unit_weights as uw', 'uw.id', '=', 'p.unit_weight')
             -> leftJoin('product_categories as pc', 'pc.id', '=', 'p.product_category')
-            -> select('p.*', 'g.name as grind_name', 'uw.name as unit_weight_name', 'pc.name as pd_cat_name')
+            -> leftJoin('quantities as q', 'q.SKU', '=', 'p.SKU')
+            -> select('p.*', 'g.name as grind_name', 'uw.name as unit_weight_name', 'pc.name as pd_cat_name', 'q.quantity', 'q.can_sale')
             -> orderByDesc('p.created_at')->paginate(20);
+
+
 
         return view('dream-up.pages.product.index', compact('products'));
     }
@@ -128,6 +141,58 @@ class ProductController extends Controller
             'roast_level' => $request->roast_level,
             'created_at' => now(),
             'updated_at' => now()
+        ]);
+
+        $retailString = $request->retail;
+        $retail = (int) str_replace(',', '', $retailString);
+        $this->createPrice($request->SKU, 'retail', $retail);
+
+        $wholesaleString = $request->wholesale;
+        $wholesale = (int) str_replace(',', '', $wholesaleString);
+        $this->createPrice($request->SKU, 'wholesale', $wholesale);
+
+        $contributorString = $request->contributor;
+        $contributor = (int) str_replace(',', '', $contributorString);
+        $this->createPrice($request->SKU, 'contributor', $contributor);
+
+        $distributorString = $request->distributor;
+        $distributor = (int) str_replace(',', '', $distributorString);
+        $this->createPrice($request->SKU, 'distributor', $distributor);
+
+        $oneHundredKgString = $request->oneHundredKg;
+        $oneHundredKg = (int) str_replace(',', '', $oneHundredKgString);
+        $this->createPrice($request->SKU, '100kg', $oneHundredKg);
+
+        $fiftyKgString = $request->fiftyKg;
+        $fiftyKg = (int) str_replace(',', '', $fiftyKgString);
+        $this->createPrice($request->SKU, '50kg', $fiftyKg);
+
+        $tenKgString = $request->tenKg;
+        $tenKg = (int) str_replace(',', '', $tenKgString);
+        $this->createPrice($request->SKU, '10kg', $tenKg);
+
+        $fiveKgString = $request->fiveKg;
+        $fiveKg = (int) str_replace(',', '', $fiveKgString);
+        $this->createPrice($request->SKU, '5kg', $fiveKg);
+
+        $agencyString = $request->agency;
+        $agency = (int) str_replace(',', '', $agencyString);
+        $this->createPrice($request->SKU, 'agency', $agency);
+
+        $importString = $request->import;
+        $import = (int) str_replace(',', '', $importString);
+        $this->createPrice($request->SKU, 'import', $import);
+
+        $categoryCount = Product::where('product_category', $request->product_category)->count();
+        ProductCategory::where('id', $request->product_category)->update(['quantity' => $categoryCount]);
+
+        $stockString = $request->stock;
+        $stock = (int) str_replace(',', '', $stockString);
+
+        Quantity::create([
+            'SKU' => $request->SKU,
+            'quantity' => $stock,
+            'can_sale' => 0,
         ]);
 
         return redirect()->route('pd-index')->with('success', 'Thêm sản phẩm thành công');
@@ -242,6 +307,9 @@ class ProductController extends Controller
             'unit_package' => 'required',
         ], $messages);
 
+        $oldCategoryId = $product->product_category;
+        $newCategoryId = $request->product_category;
+
         $product->update([
             'SKU' => $request->SKU,
             'name' => $request->name,
@@ -264,6 +332,16 @@ class ProductController extends Controller
             'roast_level' => $request->roast_level,
             'updated_at' => now()
         ]);
+
+        if ($oldCategoryId != $newCategoryId) {
+            // Cập nhật số lượng cho category cũ (giảm)
+            $oldCategoryCount = Product::where('product_category', $oldCategoryId)->count();
+            ProductCategory::where('id', $oldCategoryId)->update(['quantity' => $oldCategoryCount]);
+
+            // Cập nhật số lượng cho category mới (tăng)
+            $newCategoryCount = Product::where('product_category', $newCategoryId)->count();
+            ProductCategory::where('id', $newCategoryId)->update(['quantity' => $newCategoryCount]);
+        }
 
         $retailString = $request->retail;
         $retail = (int) str_replace(',', '', $retailString);
@@ -314,6 +392,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+        $categoryCount = Product::where('product_category', $product->product_category)->count();
+        ProductCategory::where('id', $product->product_category)->update(['quantity' => $categoryCount]);
         return redirect()->route('pd-index')->with('success', 'Xóa sản phẩm thành công');
     }
 
@@ -322,10 +402,5 @@ class ProductController extends Controller
         $query = $request->input('query');
         $products = Product::where('SKU', 'LIKE', "%{$query}%")->orWhere('name', 'LIKE', "%{$query}%")->orWhere('barcode', 'LIKE', "%{$query}%")->get();
         return view('dream-up.pages.product.table', compact('products'))->render();
-    }
-
-    public function uploadImage(Request $request)
-    {
-
     }
 }

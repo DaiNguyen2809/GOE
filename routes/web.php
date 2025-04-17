@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\QuantityController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -83,7 +84,10 @@ Route::prefix('/admin/dreamup')->withoutMiddleware([\Illuminate\Foundation\Http\
 
     Route::get('/import-order',[ImportOrderController::class,'index'])->name('io-index')->middleware('admin');
 
-    Route::get('/stock',[StockController::class,'index'])->name('st-index')->middleware('admin');
+    Route::prefix('/quantity')->group(function(){
+        Route::get('/',[QuantityController::class,'index'])->name('q-index')->middleware('admin');
+
+    });
 
     Route::prefix('/packaging')->group(function(){
         Route::get('/', [PackagingOrderController::class,'index'])->name('pk-index');

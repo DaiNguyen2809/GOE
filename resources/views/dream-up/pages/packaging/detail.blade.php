@@ -45,7 +45,7 @@
 
                         <div class="w-full pl-6 leading-loose">
                             <p class="mb-1.5">{{ $request_staff->name ?: '---'}}</p>
-                            <p class="mb-1.5">{{ $confirm_staff->name ?: '---' }}</p>
+                            <p class="mb-1.5">{{ optional($confirm_staff)->name ?? '---' }}</p>
                             <p class="mb-1.5">{{ '' ?: '---' }}</p>
                         </div>
                     </div>

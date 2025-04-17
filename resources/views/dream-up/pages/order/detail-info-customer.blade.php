@@ -11,44 +11,44 @@
             <button onclick="handlePrintOrder()" type="button" class="mt-2 w-fit bg-white border px-6 py-2 rounded-sm hover:bg-sky-50"><i class="fa-solid fa-print mr-4 text-gray-500"></i>In đơn hàng</button>
         </div>
 
-        <div class="w-[58%] flex text-sm">
-            <div class="w-full bg-white p-4 rounded-lg shadow-md">
-                <div class="flex justify-between items-center">
-                    <div class="flex flex-col items-center">
-                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full bg-blue-600 text-white font-bold">1</div>
-                        <p class="">Đặt hàng</p>
-                    </div>
+{{--        <div class="w-[58%] flex text-sm">--}}
+{{--            <div class="w-full bg-white p-4 rounded-lg shadow-md">--}}
+{{--                <div class="flex justify-between items-center">--}}
+{{--                    <div class="flex flex-col items-center">--}}
+{{--                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full bg-blue-600 text-white font-bold">1</div>--}}
+{{--                        <p class="">Đặt hàng</p>--}}
+{{--                    </div>--}}
 
-                    <div class="mr-4 w-10 h-0.5 bg-gray-300"></div>
+{{--                    <div class="mr-4 w-10 h-0.5 bg-gray-300"></div>--}}
 
-                    <div class="flex flex-col items-center">
-                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-300">2</div>
-                        <p class="text-gray-300">Duyệt</p>
-                    </div>
+{{--                    <div class="flex flex-col items-center">--}}
+{{--                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-300">2</div>--}}
+{{--                        <p class="text-gray-300">Duyệt</p>--}}
+{{--                    </div>--}}
 
-                    <div class="mr-4 w-10 h-0.5 bg-gray-300"></div>
+{{--                    <div class="mr-4 w-10 h-0.5 bg-gray-300"></div>--}}
 
-                    <div class="flex flex-col items-center">
-                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-300">3</div>
-                        <p class="text-gray-300">Đóng gói</p>
-                    </div>
+{{--                    <div class="flex flex-col items-center">--}}
+{{--                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-300">3</div>--}}
+{{--                        <p class="text-gray-300">Đóng gói</p>--}}
+{{--                    </div>--}}
 
-                    <div class="mr-4 w-10 h-0.5 bg-gray-300"></div>
+{{--                    <div class="mr-4 w-10 h-0.5 bg-gray-300"></div>--}}
 
-                    <div class="flex flex-col items-center">
-                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-300">4</div>
-                        <p class="text-gray-300">Xuất kho</p>
-                    </div>
+{{--                    <div class="flex flex-col items-center">--}}
+{{--                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-300">4</div>--}}
+{{--                        <p class="text-gray-300">Xuất kho</p>--}}
+{{--                    </div>--}}
 
-                    <div class="mr-4 w-10 h-0.5 bg-gray-300"></div>
+{{--                    <div class="mr-4 w-10 h-0.5 bg-gray-300"></div>--}}
 
-                    <div class="flex flex-col items-center">
-                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-300">5</div>
-                        <p class="text-gray-300">Hoàn thành</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--                    <div class="flex flex-col items-center">--}}
+{{--                        <div class="mb-2 w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-300">5</div>--}}
+{{--                        <p class="text-gray-300">Hoàn thành</p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 </div>
 

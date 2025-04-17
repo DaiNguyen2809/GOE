@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use App\Models\PriceType;
 use App\Models\Payment;
+use Illuminate\Support\Facades\DB;
 
 class ProductCategoryController extends Controller
 {
