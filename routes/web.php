@@ -126,7 +126,8 @@ Route::prefix('/admin/dreamup')->withoutMiddleware([\Illuminate\Foundation\Http\
         request()->session()->regenerateToken();
 
         // Redirect về trang login của React
-        $response = redirect()->away('http://localhost:3000/logout');
+        $frontendUrl = env('FRONTEND_URL', 'http://localhost:3000');
+        $response = redirect()->away($frontendUrl . '/logout');
         $response->withCookie($cookie);
 
         return $response;

@@ -43,8 +43,6 @@ class ProductController extends Controller
             -> select('p.*', 'g.name as grind_name', 'uw.name as unit_weight_name', 'pc.name as pd_cat_name', 'q.quantity', 'q.can_sale')
             -> orderByDesc('p.created_at')->paginate(20);
 
-
-
         return view('dream-up.pages.product.index', compact('products'));
     }
 

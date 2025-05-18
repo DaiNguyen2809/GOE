@@ -48,6 +48,7 @@ class AuthController extends Controller
                         'name' => $user->name,
                         'email' => $user->email,
                         'role' => $user->role,
+                        'phone' => $user->phone
                     ],
                     'token' => $sanctumToken,
                     'admin_token' => $adminToken,
@@ -110,6 +111,7 @@ class AuthController extends Controller
                         'name' => $user->name,
                         'email' => $user->email,
                         'role' => $user->role ?? 0,
+                        'phone' => $user->phone,
                     ],
                 ],
             ], 201);
@@ -124,19 +126,20 @@ class AuthController extends Controller
     public function setTempToken(Request $request)
     {
         $tempToken = $request->query('token');
+        $frontendUrl = env('FRONTEND_URL');
 
         if (!$tempToken || strlen($tempToken) !== 36) {
-            return redirect('http://localhost:3000/login')->with('error', 'Token không hợp lệ');
+            return redirect($frontendUrl . '/login')->with('error', 'Token không hợp lệ');
         }
 
         $userId = Cache::pull('temp_token_' . $tempToken); // Lấy và xóa token ngay lập tức
         if (!$userId) {
-            return redirect('http://localhost:3000/login')->with('error', 'Token không hợp lệ hoặc đã hết hạn');
+            return redirect($frontendUrl . '/login')->with('error', 'Token không hợp lệ hoặc đã hết hạn');
         }
 
         $user = User::find($userId);
         if (!$user) {
-            return redirect('http://localhost:3000/login')->with('error', 'Người dùng không tồn tại');
+            return redirect( $frontendUrl .'/login')->with('error', 'Người dùng không tồn tại');
         }
 
         // Đăng nhập người dùng và tạo session
@@ -152,9 +155,9 @@ class AuthController extends Controller
     public function verifyAdminToken(Request $request)
     {
         $token = $request->query('token');
-
+        $frontendUrl = env('FRONTEND_URL');
         if (!$token) {
-            return redirect('http://localhost:3000/login');
+            return redirect( $frontendUrl . '/login');
         }
 
         try {
@@ -164,7 +167,7 @@ class AuthController extends Controller
             $user = User::find($decoded->sub);
 
             if (!$user || $user->role == 0) {
-                return redirect('http://localhost:3000/login');
+                return redirect( $frontendUrl . '/login');
             }
 
             // Đăng nhập user
@@ -179,7 +182,7 @@ class AuthController extends Controller
 
         } catch (\Exception $e) {
             \Log::error('JWT verification failed', ['error' => $e->getMessage()]);
-            return redirect('http://localhost:3000/login');
+            return redirect( $frontendUrl .'/login');
         }
     }
 }
